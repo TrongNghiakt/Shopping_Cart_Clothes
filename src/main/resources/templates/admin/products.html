@@ -32,6 +32,8 @@
 								<th scope="col">Title</th>
 								<th scope="col">Category</th>
 								<th scope="col">Price</th>
+								<th scope="col">Discount</th>
+								<th scope="col">Discount Price</th>
 								<th scope="col">Stock</th>
 								<th scope="col">Action</th>
 							</tr>
@@ -44,8 +46,10 @@
 								<td>[[${p.title}]]</td>
 								<td>[[${p.category}]]</td>
 								<td>[[${p.price}]]</td>
+								<td>[[${p.discount}]]</td>
+								<td>[[${p.discountPrice}]]</td>
 								<td>[[${p.stock}]]</td>
-								<td><a href="#" class="btn btn-sm btn-primary"> <i
+								<td><a th:href="@{'/admin/editProduct/'+${p.id}}" class="btn btn-sm btn-primary"> <i
 										class="fa-solid fa-pen-to-square"></i> Edit
 								</a> <a th:href="@{'/admin/deleteProduct/'+${p.id}}"
 									class="btn btn-sm btn-danger"> <i class="fa-solid fa-trash"></i>

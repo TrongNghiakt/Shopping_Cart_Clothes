@@ -1,10 +1,17 @@
 package com.ecom.service.impl;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ecom.model.Product;
 import com.ecom.repository.ProductRepository;
@@ -36,6 +43,51 @@ public class ProductServiceImpl implements ProductService {
 		}
 
 		return false;
+	}
+
+	@Override
+	public Product getProductById(Integer id) {
+		Product product = productRepository.findById(id).orElse(null);
+		return product;
+	}
+
+	@Override
+	public Product updateProduct(Product product, MultipartFile image) {
+		Product dbproduct = getProductById(product.getId());
+
+		String imageName = image.isEmpty() ? dbproduct.getImage() : image.getOriginalFilename();
+
+		dbproduct.setTitle(product.getTitle());
+		dbproduct.setDescription(product.getDescription());
+		dbproduct.setCategory(product.getCategory());
+		dbproduct.setPrice(product.getPrice());
+		dbproduct.setStock(product.getStock());
+		dbproduct.setImage(imageName);
+		dbproduct.setDiscount(product.getDiscount());
+
+		Double discount = product.getPrice() * (product.getDiscount() / 100.0);
+		Double discountPrice = product.getPrice() - discount;
+		dbproduct.setDiscountPrice(discountPrice);
+
+		Product saveProduct = productRepository.save(dbproduct);
+		if (!ObjectUtils.isEmpty(saveProduct)) {
+			if (!image.isEmpty()) {
+				try {
+
+					File saveFile = new ClassPathResource("static/img").getFile();
+
+					Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "product_img" + File.separator
+							+ image.getOriginalFilename());
+					Files.copy(image.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				// System.out.println(path);
+
+			}
+			return product;
+		}
+		return null;
 	}
 
 }
