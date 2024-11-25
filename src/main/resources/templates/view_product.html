@@ -1,65 +1,76 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{base::layout(~{::section})}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
 
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+    <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 
 <body>
-	<section>
-		<div class="container" style="margin-top: 70px; margin-bottom: 100px;">
-			<div class="col-md-12">
-				<div class="row">
-					<div class="col-md-6 text-end">
-						<img alt="" src="/img/product_img/spring8.jpg" height="400px">
-					</div>
+    <section>
+        <div class="container py-5 mt-5">
+            <div class="card shadow-sm p-5 bg-body-tertiary rounded">
+                <div class="row align-items-center">
+                    <!-- Image Section -->
+                    <div class="col-md-6 text-center mb-4 mb-md-0">
+                        <img src="/img/product_img/spring8.jpg" alt="Product Image" class="img-fluid rounded shadow" style="max-height: 500px; object-fit: cover;">
+                    </div>
 
-					<div class="col-md-6">
-						<p class="fs-3">Laptop</p>
-						<p>
-							<span class="fw-bold"> Description : </span><br> Hp Laptop,
-							256Gb SSD
-						</p>
-						<p>
-							<span class="fw-bold"> Product Details: </span> <br> Status
-							: <span class="badge bg-success">Available</span> <span
-								class="badge bg-warning"> out of stock</span> <br> Category
-							: Laptop <br> Policy : 7 Days Replacement & Return
-						</p>
-						<p class="fs-5 fw-bold">
-							Price :&nbsp;&nbsp;&nbsp;&nbsp; <i class="fas fa-rupee-sign"></i>
-							700000 <span
-								class="fs-6 text-decoration-line-through text-secondary">
-								5000</span> <span class="fs-6 text-success">50% off</span>
-						</p>
-						
-						<div class = "row">
-							<div class = "col-md-4 text-danger text-center p-2">
-								<i class = "fas fa-money-bill-wave fa-2x"></i>
-								<p> Cash On Delivery</p>
-							</div>
-							
-							<div class = "col-md-4 text-danger text-center p-2">
-								<i class = "fas fa-undo-alt fa-2x"></i>
-								<p> Return Available</p>	
-							</div>
-							
-							<div class = "col-md-4 text-danger text-center p-2">
-								<i class = "fas fa-truck-moving fa-2x"></i>
-								<p> Free shipping</p>	
-							</div>
-						</div>
-						
-						<a href = "login.jsp" class = "btn btn-danger col-md-12"> Add To Cart</a>
-						
-					</div>
+                    <!-- Product Details Section -->
+                    <div class="col-md-6">
+                        <h2 class="fs-3 fw-bold mb-3">[[${product.title}]]</h2>
+                        <p><span class="fw-bold">Description:</span> [[${product.description}]]</p>
+                        <p>
+                            <span class="fw-bold">Product Details:</span><br>
+                            Status:
+                            <th:block th:if="${product.stock > 0}">
+                                <span class="badge bg-success">Available</span>
+                            </th:block>
+                            <th:block th:unless="${product.stock > 0}">
+                                <span class="badge bg-warning text-dark">Out of stock</span>
+                            </th:block>
+                            <br>Category: [[${product.category}]]<br>
+                            Policy: 7 Days Replacement & Return
+                        </p>
+                        <p class="fs-5 fw-bold">
+                            Price: <i class="fas fa-dollar-sign"></i> [[${product.discountPrice}]]
+                            <span class="text-decoration-line-through text-secondary">[[${product.price}]]</span>
+                            <span class="text-success">[[${product.discount}]]% off</span>
+                        </p>
 
-				</div>
-			</div>
-		</div>
-	</section>
+                        <!-- Features -->
+                        <div class="row text-center mb-4">
+                            <div class="col-md-4">
+                                <i class="fas fa-money-bill-wave fa-2x text-success"></i>
+                                <p>Cash On Delivery</p>
+                            </div>
+                            <div class="col-md-4">
+                                <i class="fas fa-undo-alt fa-2x text-warning"></i>
+                                <p>Return Available</p>
+                            </div>
+                            <div class="col-md-4">
+                                <i class="fas fa-truck fa-2x text-primary"></i>
+                                <p>Free Shipping</p>
+                            </div>
+                        </div>
+
+                        <!-- Add to Cart Button -->
+                        <th:block th:if="${product.stock > 0}">
+                            <a href="login.jsp" class="btn btn-danger w-100">Add To Cart</a>
+                        </th:block>
+                        <th:block th:unless="${product.stock > 0}">
+                            <a href="#" class="btn btn-warning text-white w-100">Out of Stock</a>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

@@ -17,9 +17,11 @@
 </head>
 <body>
 	<!--  Start Navbar -->
-	<nav class="navbar navbar-expand-lg |  bg-primary fixed-top navbar-dark">
+	<nav
+		class="navbar navbar-expand-lg |  bg-primary fixed-top navbar-dark">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#" ><i class="fa-solid fa-cart-shopping"></i> King’s Wardrobe</a>
+			<a class="navbar-brand" href="#"><i
+				class="fa-solid fa-cart-shopping"></i> King’s Wardrobe</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -29,37 +31,58 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#"><i class="fa-solid fa-house"></i> Home</a></li>
+						aria-current="page" href="#"><i class="fa-solid fa-house"></i>
+							Home</a></li>
 					<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="/products">Product</a></li>
-			
-					
+
+
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" role="button"
 						data-bs-toggle="dropdown" aria-expanded="false"> Category </a>
 						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="#">Action</a></li>
-							<li><a class="dropdown-item" href="#">Another action</a></li>
-							<li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="#">Something else
-									here</a></li>
-						</ul></li>
-					
+							<li th:each = "c:${categorys}"><a class="dropdown-item" th:href="@{'/products?category='+${c.name}}">[[${c.name}]]</a></li>
+
+						</ul>
+					</li>
+
 				</ul>
-				
-				
-				
+
+
+
 				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="/login"><i class="fa-solid fa-right-to-bracket"></i> LOGIN</a></li>
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="/register">REGISTER</a></li>
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="/admin">ADMIN</a></li>			
+					<th:block th:if="${user==null}">
+						<li class="nav-item"><a class="nav-link active"
+							aria-current="page" href="/signin"><i
+								class="fa-solid fa-right-to-bracket"></i> LOGIN</a></li>
+						<li class="nav-item"><a class="nav-link active"
+							aria-current="page" href="/register">REGISTER</a></li>
+						<li class="nav-item"><a class="nav-link active"
+							aria-current="page" href="#">ADMIN</a></li>
+					</th:block>
+
+
+					<th:block th:if="${user!=null}">
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle active" href="#" role="button"
+							data-bs-toggle="dropdown" aria-expanded="false"> <i
+								class="fa-solid fa-user"></i> [[${user.name}]]
+						</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="#">Profile</a></li>
+								<li><a class="dropdown-item" href="#">Another action</a></li>
+
+							</ul></li>
+
+						<li class="nav-item"><a class="nav-link active"
+							aria-current="page" href="/logout"> <i
+								class="fa-solid fa-right-to-bracket"></i> Logout
+						</a></li>
+					</th:block>
 				</ul>
-					
-						
-				
+
+
+
 			</div>
 		</div>
 	</nav>
@@ -71,8 +94,9 @@
 
 
 	<!--  Start Footer  -->
-	<div class = "container-fluid p-1 bg-primary text-center text-white" style = "margin-top: 250px">
-		<p> ecom.com
+	<div class="container-fluid p-1 bg-primary text-center text-white"
+		style="margin-top: 250px">
+		<p>ecom.com
 	</div>
 	<!--  End Footer  -->
 
