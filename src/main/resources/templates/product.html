@@ -25,54 +25,63 @@
 			</div>
 		</div>
 
-		<div class="container-fluid mt-1">
+		<div class="container-fluid mt-4">
+			<!-- Categories Section -->
 			<div class="row">
 				<div class="col-md-2">
-					<div class="list-group">
-						<a href="#" class="list-group-item list-group-item-action active"
-							aria-current="true"> Black Friday </a>
-							<a href="#"
-							class="list-group-item list-group-item-action">New in</a>
-							 <a href="#"
-							class="list-group-item list-group-item-action">Clothing</a> <a
-							href="#" class="list-group-item list-group-item-action">Trending</a>
-						<a href="#" class="list-group-item list-group-item-action">Shoes</a>
-						<a href="#" class="list-group-item list-group-item-action">Accessories</a>
-
-						<a href="#" class="list-group-item list-group-item-action">
-							Gifting </a> <a href="#"
-							class="list-group-item list-group-item-action">Brands</a> <a
-							href="#" class="list-group-item list-group-item-action">Tailoring</a>
-						<a href="#" class="list-group-item list-group-item-action">Activewear</a>
-						<a href="#" class="list-group-item list-group-item-action">Grooming</a>
-						<a href="#" class="list-group-item list-group-item-action">Topman</a>
-						<a href="#" class="list-group-item list-group-item-action">Marketplace</a>
+					<div class="card shadow-sm p-0 mb-4 bg-body-tertiary rounded">
+						<div class="card-body">
+							<div class="list-group">
+								<p class="fs-4">Category</p>
+								<a href="/products"
+									th:classappend="${paramValue ==''} ? 'active' : ''"
+									class="list-group-item list-group-item-action"
+									aria-current="true"> All </a> <a th:each="c:${categories}"
+									th:href="@{'/products?category='+${c.name}}"
+									th:classappend="${paramValue == c.name} ? 'active':''"
+									class="list-group-item list-group-item-action">
+									[[${c.name}]] </a>
+							</div>
+						</div>
 					</div>
 				</div>
-				
-				<div class = "col-md-10">
-					<div class = "card">
-						<div class = "card-body">
-							<p class = "fs-3 text-center"> Products </p>
-							
-							<div class = "row">
-								<div class = "col-md-3"></div>
-								<div class = "card">
-									<div class = "card-body">
-									<div class = "card-body text-center">
-										<img alt = "" src = "/img/product_img/avt1.jpg" width = "100%" height = "150px">
-										<p class = "fs-5 text-center">Laptop</p>
-										<div class = "row text-center">
-											<p class = "fs-6 fw-bold">
-												&#8377;500 <span class = "fs-6 text-success"> 20% off</span>
-											</p>
-											<a href = "/product" class = "btn btn-primary col-md6 offset-md-3">View Details</a>
+
+				<!-- Products Section -->
+				<div class="col-md-10">
+					<div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+						<div class="card-body">
+							<p class="fs-3 text-center mb-4">Products</p>
+							<div class="row g-4">
+
+								<th:block th:if="${products.size>0}">
+
+
+									<div class="col-md-3 col-sm-6 col-12" th:each="p:${products}">
+										<div class="card h-100">
+											<img class="card-img-top"
+												th:src="@{'/img/product_img/'+${p.image}}" alt=""
+												style="height: 250px; object-fit: cover;">
+											<div class="card-body text-center">
+												<p class="fs-5">[[${p.title}]]</p>
+												<p class="fs-6 fw-bold">
+													<span>&#36;[[${p.discountPrice}]]</span> <br> <span
+														class="text-decoration-line-through text-secondary">
+														&#36;[[${p.price}]] </span> <span class="fs-6 text-success">
+														[[${p.discount}]]% off</span>
+												</p>
+												<a th:href="@{'/product/'+${p.id}}"
+													class="btn btn-primary w-100">View Details</a>
+											</div>
 										</div>
 									</div>
-									</div>
-								</div>
 							</div>
+							</th:block>
 							
+							<th:block th:unless="${products.size>0}">
+								<p class="fs-4 text-center mt-4 text-danger">Product not
+									Available</p>
+							</th:block>
+
 						</div>
 					</div>
 				</div>

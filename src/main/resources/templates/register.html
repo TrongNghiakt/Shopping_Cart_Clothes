@@ -17,25 +17,26 @@
 				<div class="col-md-7 p-2">
 					<div class="card shadow p-3 mb-5 bg-body-tertiary rounded">
 						<div class="card-header text-center">
-							<p class="fs-4">Đăng ký</p>
+							<p class="fs-4">Register</p>
 							<th:block th:if="${session.succMsg}">
-								<p class="text-success fw-bold">[[${session.succMsg}]]</p>
-								<th:block th:text="${@commServiceImpl.removeSessionMessage()}"></th:block>
+								<p class="text-success fw-bold" style="font-size: 1.8rem; font-weight: 700;">[[${session.succMsg}]]</p>
+								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
 							</th:block>
+
 							<th:block th:if="${session.errorMsg}">
-								<p class="text-danger fw-bold">[[${session.errorMsg}]]</p>
-								<th:block th:text="${@commServiceImpl.removeSessionMessage()}"></th:block>
+								<p class="text-danger fw-bold" style="font-size: 1.8rem; font-weight: 700;">[[${session.errorMsg}]]</p>
+								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
 							</th:block>
 						</div>
 						<div class="card-body">
-							<form action="/saveUser" enctype="multipart/form-data" method="post">
+							<form action="/saveUser" enctype="multipart/form-data" method = "post" >
 								<div class="row">
 									<div class="col">
-										<label class="form-label">Họ tên</label>
+										<label class="form-label">Full Name</label>
 										<input required class="form-control" name="name" type="text">
 									</div>
 									<div class="col">
-										<label class="form-label">SĐT</label>
+										<label class="form-label">Phone Number</label>
 										<input required class="form-control" name="mobileNumber" type="number">
 									</div>
 								</div>
@@ -45,11 +46,11 @@
 								</div>
 								<div class="row">
 									<div class="col">
-										<label class="form-label">Địa chỉ</label>
+										<label class="form-label">Address</label>
 										<input required class="form-control" name="address" type="text">
 									</div>
 									<div class="col">
-										<label class="form-label">Tỉnh/TP</label>
+										<label class="form-label">City</label>
 										<input required class="form-control" name="city" type="text">
 									</div>
 								</div>
@@ -58,27 +59,32 @@
 										<label class="form-label">State</label>
 										<input required class="form-control" name="state" type="text">
 									</div>
+									<div class="col">
+										<label class="form-label">Pin Code</label>
+										<input required class="form-control" name="pincode" type="number">
+									</div>
 								</div>
+								
 								<div class="row">
 									<div class="col">
-										<label class="form-label">Mật khẩu</label>
+										<label class="form-label">Password</label>
 										<input required class="form-control" name="password" type="password">
 									</div>
 									<div class="col">
-										<label class="form-label">Xác nhận mật khẩu</label>
+										<label class="form-label">Password Confirm</label>
 										<input required class="form-control" name="cpassword" type="password">
 									</div>
 								</div>
 								<div class="mb-3">
-									<label class="form-label">Ảnh hồ sơ</label>
+									<label class="form-label">Image Profile</label>
 									<input class="form-control" name="img" type="file">
 								</div>
-								<button type="submit" class="btn bg-primary text-white col-md-12">Đăng ký</button>
+								<button type="submit" class="btn bg-primary text-white col-md-12">Register</button>
 							</form>
 						</div>
 						<div class="card-footer text-center">
-							Bạn đã có tài khoản?
-							<a href="/login" class="text-decoration-none">Đăng nhập</a>
+							Already have an account?
+							<a href="/login" class="text-decoration-none">Login</a>
 						</div>
 					</div>
 				</div>
