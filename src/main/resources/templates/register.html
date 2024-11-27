@@ -26,7 +26,7 @@
 							<th:block th:if="${session.errorMsg}">
 								<p class="text-danger fw-bold" style="font-size: 1.8rem; font-weight: 700;">[[${session.errorMsg}]]</p>
 								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
-							</th:block>
+							
 						</div>
 						<div class="card-body">
 							<form action="/saveUser" enctype="multipart/form-data" method = "post" >
@@ -37,7 +37,7 @@
 									</div>
 									<div class="col">
 										<label class="form-label">Phone Number</label>
-										<input required class="form-control" name="mobileNumber" type="number">
+										<input required class="form-control" name="mobilePhone" type="number">
 									</div>
 								</div>
 								<div class="mb-3">
@@ -72,7 +72,7 @@
 									</div>
 									<div class="col">
 										<label class="form-label">Password Confirm</label>
-										<input required class="form-control" name="cpassword" type="password">
+										<input required class="form-control" name="password" type="password">
 									</div>
 								</div>
 								<div class="mb-3">
@@ -84,7 +84,7 @@
 						</div>
 						<div class="card-footer text-center">
 							Already have an account?
-							<a href="/login" class="text-decoration-none">Login</a>
+							<a href="/signin" class="text-decoration-none">Login</a>
 						</div>
 					</div>
 				</div>

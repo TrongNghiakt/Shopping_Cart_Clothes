@@ -1,5 +1,6 @@
 package com.ecom.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.ecom.model.UserDtls;
 import com.ecom.repository.UserRepository;
 import com.ecom.service.UserService;
+import com.ecom.util.AppConstant;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -23,6 +25,9 @@ public class UserServiceImpl implements UserService {
 	public UserDtls saveUser(UserDtls user) {
 		user.setRole("ROLE_USER");
 		user.setIsEnable(true);
+		user.setAccountNonLocked(true);
+		user.setFailedAttemp(0);
+
 		String encodePassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encodePassword);
 		UserDtls saveUser = userRepository.save(user);
@@ -52,6 +57,63 @@ public class UserServiceImpl implements UserService {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public void increaseFailedAttemp(UserDtls user) {
+		int attempt = user.getFailedAttemp() + 1;
+		user.setFailedAttemp(attempt);
+		userRepository.save(user);
+
+	}
+
+	@Override
+	public void userAccountLock(UserDtls user) {
+		user.setAccountNonLocked(false);
+		user.setLockTime(new Date());
+		userRepository.save(user);
+
+	}
+
+	@Override
+	public boolean unlockAccountTimeExpired(UserDtls user) {
+		long lockTime = user.getLockTime().getTime();
+		long unLockTime = lockTime + AppConstant.UNLOCK_DURATION_TIME;
+
+		long currentTime = System.currentTimeMillis();
+
+		if (unLockTime < currentTime) {
+			user.setAccountNonLocked(true);
+			user.setFailedAttemp(0);
+			user.setLockTime(null);
+			userRepository.save(user);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public void resetAttempt(int userId) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void updateUserResetToken(String email, String resetToken) {
+		UserDtls findByEmail = userRepository.findByEmail(email);
+		findByEmail.setResetToken(resetToken);
+		userRepository.save(findByEmail);
+
+	}
+
+	@Override
+	public UserDtls getUserByToken(String token) {
+		return userRepository.findByResetToken(token);
+	}
+
+	@Override
+	public UserDtls updateUser(UserDtls user) {
+		return userRepository.save(user);
 	}
 
 }

@@ -19,6 +19,7 @@
 						<div class="card-header">
 							<p class="fs-4 text-center">Login</p>
 							<div th:if="${param.error}" class="alert alert-danger text-center" style="font-size: 1.8rem; font-weight: 700;">
+				
 								[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]
 							</div>
 
@@ -39,7 +40,7 @@
 							</form>
 						</div>
 						<div class="card-footer text-center">
-							<a href="#" class="text-decoration-none">Forgot Password</a> <br>
+							<a href="/forgot-password" class="text-decoration-none">Forgot Password</a> <br>
 							Don't have an account ? 
 							<a href="/register" class="text-decoration-none">Create one</a>
 						</div>
