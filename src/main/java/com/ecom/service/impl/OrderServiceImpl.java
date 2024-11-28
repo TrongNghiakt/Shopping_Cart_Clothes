@@ -1,7 +1,8 @@
 package com.ecom.service.impl;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import com.ecom.model.ProductOrder;
 import com.ecom.repository.CartRepository;
 import com.ecom.repository.ProductOrderRepository;
 import com.ecom.service.OrderService;
+import com.ecom.util.CommonUtil;
 import com.ecom.util.OrderStatus;
 
 @Service
@@ -25,15 +27,18 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private CartRepository cartRepository;
 
+	@Autowired
+	private CommonUtil commonUtil;
+
 	@Override
-	public void saveOrder(Integer userid, OrderRequest orderRequest) {
+	public void saveOrder(Integer userid, OrderRequest orderRequest) throws Exception {
 		List<Cart> carts = cartRepository.findByUserId(userid);
 
 		for (Cart cart : carts) {
 			ProductOrder order = new ProductOrder();
 
 			order.setOrderId(UUID.randomUUID().toString());
-			order.setOrderDate(new Date());
+			order.setOrderDate(LocalDate.now());
 
 			order.setProduct(cart.getProduct());
 			order.setPrice(cart.getProduct().getDiscountPrice());
@@ -56,9 +61,34 @@ public class OrderServiceImpl implements OrderService {
 
 			order.setOrderAddress(address);
 
-			orderRepository.save(order);
+			ProductOrder saveOrder = orderRepository.save(order);
+			commonUtil.sendMailForProductOrder(saveOrder, "success");
+
 		}
 
+	}
+
+	@Override
+	public List<ProductOrder> getOrderByUser(Integer userId) {
+		List<ProductOrder> orders = orderRepository.findByUserId(userId);
+		return orders;
+	}
+
+	@Override
+	public ProductOrder updateOrderStatus(Integer id, String status) {
+		Optional<ProductOrder> findById = orderRepository.findById(id);
+		if (findById.isPresent()) {
+			ProductOrder productOrders = findById.get();
+			productOrders.setStatus(status);
+			ProductOrder updateOrder = orderRepository.save(productOrders);
+			return updateOrder;
+		}
+		return null;
+	}
+
+	@Override
+	public List<ProductOrder> getAllOrders() {
+		return orderRepository.findAll();
 	}
 
 }
