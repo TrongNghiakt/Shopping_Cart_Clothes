@@ -12,15 +12,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ecom.model.Cart;
 import com.ecom.model.Category;
 import com.ecom.model.OrderRequest;
+import com.ecom.model.ProductOrder;
 import com.ecom.model.UserDtls;
 import com.ecom.service.CartService;
 import com.ecom.service.CategoryService;
 import com.ecom.service.OrderService;
 import com.ecom.service.UserService;
+import com.ecom.util.CommonUtil;
+import com.ecom.util.OrderStatus;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -44,6 +48,9 @@ public class UserController {
 
 	@Autowired
 	private OrderService orderService;
+
+	@Autowired
+	private CommonUtil commonUtil;
 
 	@ModelAttribute
 	public void getUserDetails(Principal p, Model m) {
@@ -116,7 +123,7 @@ public class UserController {
 	}
 
 	@PostMapping("/save-order")
-	public String savePage(@ModelAttribute OrderRequest request, Principal p) {
+	public String savePage(@ModelAttribute OrderRequest request, Principal p) throws Exception {
 		// System.out.println(request);
 
 		UserDtls user = getLoggedInUserDetails(p);
@@ -127,5 +134,61 @@ public class UserController {
 	@GetMapping("/success")
 	public String loadSuccess() {
 		return "/user/success";
+	}
+
+	@GetMapping("/user-orders")
+	public String myOrder(Model m, Principal p) {
+		UserDtls loginUser = getLoggedInUserDetails(p);
+		List<ProductOrder> orders = orderService.getOrderByUser(loginUser.getId());
+		m.addAttribute("orders", orders);
+		return "/user/my_orders";
+	}
+
+	@GetMapping("/update-status")
+	public String updateOrderStatus(@RequestParam Integer id, @RequestParam Integer st, HttpSession session) {
+
+		OrderStatus[] values = OrderStatus.values();
+		String status = null;
+
+		for (OrderStatus orderSt : values) {
+			if (orderSt.getId().equals(st)) {
+				status = orderSt.getName();
+			}
+		}
+
+		ProductOrder updateOrder = orderService.updateOrderStatus(id, status);
+		try {
+			commonUtil.sendMailForProductOrder(updateOrder, status);
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		if (!ObjectUtils.isEmpty(updateOrder)) {
+			session.setAttribute("succMsg", "Status updated!");
+		} else {
+			session.setAttribute("errorMsg", "Status not updated!");
+		}
+
+		return "redirect:/user/user-orders";
+	}
+
+	@GetMapping("/profile")
+	public String profile() {
+
+		return "/user/profile";
+	}
+
+	@PostMapping("/update-profile")
+	public String updateProfile(@ModelAttribute UserDtls user, @RequestParam MultipartFile img, HttpSession session) {
+		UserDtls updateUserProfile = userService.updateUserProfile(user, img);
+
+		if (ObjectUtils.isEmpty(updateUserProfile)) {
+			session.setAttribute("errorMsg", "Profile not updated!");
+		} else {
+			session.setAttribute("succMsg", "Profile updated!");
+		}
+
+		return "redirect:/user/profile";
 	}
 }
