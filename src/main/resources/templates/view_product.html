@@ -1,76 +1,118 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
 
 <head>
-    <meta charset="ISO-8859-1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Details</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Details</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 
 <body>
-    <section>
-        <div class="container py-5 mt-5">
-            <div class="card shadow-sm p-5 bg-body-tertiary rounded">
-                <div class="row align-items-center">
-                    <!-- Image Section -->
-                    <div class="col-md-6 text-center mb-4 mb-md-0">
-                        <img src="/img/product_img/spring8.jpg" alt="Product Image" class="img-fluid rounded shadow" style="max-height: 500px; object-fit: cover;">
-                    </div>
+	<section>
+		<div class="container py-5 mt-5">
+			<div class="card shadow-sm p-5 bg-body-tertiary rounded">
+				<div class="row align-items-center">
+					<th:block th:if="${session.succMsg}">
+						<p class="text-success fw-bold alert alert-success text-center"
+							style="font-size: 1.8rem; font-weight: 700;">[[${session.succMsg}]]</p>
+						<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+					</th:block>
 
-                    <!-- Product Details Section -->
-                    <div class="col-md-6">
-                        <h2 class="fs-3 fw-bold mb-3">[[${product.title}]]</h2>
-                        <p><span class="fw-bold">Description:</span> [[${product.description}]]</p>
-                        <p>
-                            <span class="fw-bold">Product Details:</span><br>
-                            Status:
-                            <th:block th:if="${product.stock > 0}">
-                                <span class="badge bg-success">Available</span>
-                            </th:block>
-                            <th:block th:unless="${product.stock > 0}">
-                                <span class="badge bg-warning text-dark">Out of stock</span>
-                            </th:block>
-                            <br>Category: [[${product.category}]]<br>
-                            Policy: 7 Days Replacement & Return
-                        </p>
-                        <p class="fs-5 fw-bold">
-                            Price: <i class="fas fa-dollar-sign"></i> [[${product.discountPrice}]]
-                            <span class="text-decoration-line-through text-secondary">[[${product.price}]]</span>
-                            <span class="text-success">[[${product.discount}]]% off</span>
-                        </p>
+			
 
-                        <!-- Features -->
-                        <div class="row text-center mb-4">
-                            <div class="col-md-4">
-                                <i class="fas fa-money-bill-wave fa-2x text-success"></i>
-                                <p>Cash On Delivery</p>
-                            </div>
-                            <div class="col-md-4">
-                                <i class="fas fa-undo-alt fa-2x text-warning"></i>
-                                <p>Return Available</p>
-                            </div>
-                            <div class="col-md-4">
-                                <i class="fas fa-truck fa-2x text-primary"></i>
-                                <p>Free Shipping</p>
-                            </div>
-                        </div>
 
-                        <!-- Add to Cart Button -->
-                        <th:block th:if="${product.stock > 0}">
-                            <a href="login.jsp" class="btn btn-danger w-100">Add To Cart</a>
-                        </th:block>
-                        <th:block th:unless="${product.stock > 0}">
-                            <a href="#" class="btn btn-warning text-white w-100">Out of Stock</a>
-                        </th:block>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+					<th:block th:if="${session.errorMsg}">
+						<p class="text-danger fw-bold alert alert-danger text-center"
+							style="font-size: 1.8rem; font-weight: 700;">[[${session.errorMsg}]]</p>
+						<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+					</th:block>
 
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+					<!-- Image Section -->
+					<div class="col-md-6 text-center mb-4 mb-md-0">
+						<img src="/img/product_img/spring8.jpg" alt="Product Image"
+							class="img-fluid rounded shadow"
+							style="max-height: 500px; object-fit: cover;">
+					</div>
+
+
+
+
+
+
+					<!-- Product Details Section -->
+					<div class="col-md-6">
+						<h2 class="fs-3 fw-bold mb-3">[[${product.title}]]</h2>
+						<p>
+							<span class="fw-bold">Description:</span>
+							[[${product.description}]]
+						</p>
+						<p>
+							<span class="fw-bold">Product Details:</span><br> Status:
+							<th:block th:if="${product.stock > 0}">
+								<span class="badge bg-success">Available</span>
+							</th:block>
+							<th:block th:unless="${product.stock > 0}">
+								<span class="badge bg-warning text-dark">Out of stock</span>
+							</th:block>
+							<br>Category: [[${product.category}]]<br> Policy: 7
+							Days Replacement & Return
+						</p>
+						<p class="fs-5 fw-bold">
+							Price: <i class="fas fa-dollar-sign"></i>
+							[[${product.discountPrice}]] <span
+								class="text-decoration-line-through text-secondary">[[${product.price}]]</span>
+							<span class="text-success">[[${product.discount}]]% off</span>
+						</p>
+
+						<!-- Features -->
+						<div class="row text-center mb-4">
+							<div class="col-md-4">
+								<i class="fas fa-money-bill-wave fa-2x text-success"></i>
+								<p>Cash On Delivery</p>
+							</div>
+							<div class="col-md-4">
+								<i class="fas fa-undo-alt fa-2x text-warning"></i>
+								<p>Return Available</p>
+							</div>
+							<div class="col-md-4">
+								<i class="fas fa-truck fa-2x text-primary"></i>
+								<p>Free Shipping</p>
+							</div>
+						</div>
+
+						<!-- Add to Cart Button -->
+						<th:block th:if="${product.stock > 0}">
+							<th:block th:if="${user==null}">
+								<a href="/signin" class="btn btn-danger col-md-12">Add To
+									Cart</a>
+							</th:block>
+
+
+							<th:block th:unless="${user==null}">
+								<a
+									th:href="@{'/user/addCart?pid='+${product.id}+'&uid='+${user.id}}"
+									class="btn btn-danger col-md-12">Add To Cart</a>
+							</th:block>
+						</th:block>
+						<th:block th:unless="${product.stock > 0}">
+							<a href="#" class="btn btn-warning text-white col-md-12">Out
+								of Stock</a>
+						</th:block>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script src="https://kit.fontawesome.com/a076d05399.js"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
