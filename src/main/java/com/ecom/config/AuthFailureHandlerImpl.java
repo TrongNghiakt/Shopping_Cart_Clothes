@@ -33,23 +33,28 @@ public class AuthFailureHandlerImpl extends SimpleUrlAuthenticationFailureHandle
 
 		UserDtls userDtls = userRepository.findByEmail(email);
 
-		if (userDtls.getIsEnable()) {
-			if (userDtls.getAccountNonLocked()) {
-				if (userDtls.getFailedAttemp() < AppConstant.ATTEMPT_TIME) {
-					userService.increaseFailedAttemp(userDtls);
+		if (userDtls != null) {
+
+			if (userDtls.getIsEnable()) {
+				if (userDtls.getAccountNonLocked()) {
+					if (userDtls.getFailedAttemp() < AppConstant.ATTEMPT_TIME) {
+						userService.increaseFailedAttemp(userDtls);
+					} else {
+						userService.userAccountLock(userDtls);
+						exception = new LockedException("Your account is locked !! Failed attempt 3");
+					}
 				} else {
-					userService.userAccountLock(userDtls);
-					exception = new LockedException("Your account is locked !! Failed attempt 3");
+					if (userService.unlockAccountTimeExpired(userDtls)) {
+						exception = new LockedException("Your account is unLocked! Please try to login");
+					} else {
+						exception = new LockedException("Your account is Locked! Please try after sometimes");
+					}
 				}
 			} else {
-				if (userService.unlockAccountTimeExpired(userDtls)) {
-					exception = new LockedException("Your account is unLocked! Please try to login");
-				} else {
-					exception = new LockedException("Your account is Locked! Please try after sometimes");
-				}
+				exception = new LockedException("Your account is inactive");
 			}
 		} else {
-			exception = new LockedException("Your account is inactive");
+			exception = new LockedException("Email & password is invalid!");
 		}
 
 		super.setDefaultFailureUrl("/signin?error");
