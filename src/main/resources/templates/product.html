@@ -9,11 +9,10 @@
 
 <body>
 	<section>
-		<div class="container-fluid p-3 mt-5"
-			style="background-color: #F9F4EB;">
+		<div class="container-fluid  bg-primary p-4 mt-5">
 			<div class="row">
 				<div class="col-md-8 offset-md-2">
-					<form>
+					<form action="search" method="get">
 						<div class="input-group">
 							<input type="text" class="form-control" name="ch">
 							<button class="btn btn-light text-dark ms-3 col-md-2">
@@ -28,11 +27,11 @@
 		<div class="container-fluid mt-4">
 			<!-- Categories Section -->
 			<div class="row">
-				<div class="col-md-2">
-					<div class="card shadow-sm p-0 mb-4 bg-body-tertiary rounded">
+				<div class="col-md-2 p-0">
+					<div class="card shadow-sm p-0 mb-5 bg-body-tertiary rounded">
 						<div class="card-body">
 							<div class="list-group">
-								<p class="fs-4">Category</p>
+								<p class="fs-5">Category</p>
 								<a href="/products"
 									th:classappend="${paramValue ==''} ? 'active' : ''"
 									class="list-group-item list-group-item-action"
@@ -53,7 +52,7 @@
 							<p class="fs-3 text-center mb-4">Products</p>
 							<div class="row g-4">
 
-								<th:block th:if="${products.size>0}">
+								<th:block th:if="${productsSize>0}">
 
 
 									<div class="col-md-3 col-sm-6 col-12" th:each="p:${products}">
@@ -76,19 +75,41 @@
 									</div>
 							</div>
 							</th:block>
-							
-							<th:block th:unless="${products.size>0}">
+
+							<th:block th:unless="${productsSize>0}">
 								<p class="fs-4 text-center mt-4 text-danger">Product not
 									Available</p>
 							</th:block>
 
 						</div>
 					</div>
+
+
+					<!--  Start Pagination -->
+					<div class="row">
+						<div class="col-md-4">Total Products : 2323</div>
+						<div class="col-md-6">
+
+							<nav aria-label="Page navigation example">
+								<ul class="pagination">
+									<li class="page-item"><a class="page-link" href="#"
+										aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+									</a></li>
+									<li class="page-item"><a class="page-link" href="#">1</a></li>
+									<li class="page-item"><a class="page-link" href="#">2</a></li>
+									<li class="page-item"><a class="page-link" href="#">3</a></li>
+									<li class="page-item"><a class="page-link" href="#"
+										aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+									</a></li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+
 				</div>
 			</div>
+
 		</div>
-
-
 
 	</section>
 
