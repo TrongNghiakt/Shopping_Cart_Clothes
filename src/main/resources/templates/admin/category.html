@@ -14,12 +14,14 @@
 						<div class="card-header text-center">
 							<p class="fs-4">Add Category</p>
 							<th:block th:if="${session.succMsg}">
-								<p class="text-success fw-bold" style="font-size: 1.8rem; font-weight: 700;">[[${session.succMsg}]]</p>
+								<p class="text-success fw-bold"
+									style="font-size: 1.8rem; font-weight: 700;">[[${session.succMsg}]]</p>
 								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
 							</th:block>
 
 							<th:block th:if="${session.errorMsg}">
-								<p class="text-danger fw-bold" style="font-size: 1.8rem; font-weight: 700;">[[${session.errorMsg}]]</p>
+								<p class="text-danger fw-bold"
+									style="font-size: 1.8rem; font-weight: 700;">[[${session.errorMsg}]]</p>
 								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
 							</th:block>
 						</div>
@@ -91,6 +93,35 @@
 									</tr>
 								</tbody>
 							</table>
+
+
+							<div class="row">
+								<div class="col-md-4">Total Category :
+									[[${totalElements}]]</div>
+								<div class="col-md-6">
+					
+										<nav aria-label="Page navigation example">
+											<ul class="pagination">
+												<li class="page-item"><a class="page-link"
+													th:classappend="${isFirst} ? 'disabled':''"
+													th:href="@{'/admin/category?pageNo='+${pageNo-1}}"
+													aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+												</a></li>
+												<li th:each="i:${#numbers.sequence(1,totalPages)}"
+													class="page-item"
+													th:classappend="${pageNo+1==i}?'active':''"><a
+													class="page-link" th:href="@{'/admin/category?pageNo='+${i-1}}">[[${i}]]</a></li>
+
+												<li class="page-item"><a class="page-link"
+													th:classappend="${isLast} ? 'disabled':''"
+													th:href="@{'/admin/category?pageNo='+${pageNo+1}}"
+													aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+												</a></li>
+											</ul>
+										</nav>
+								</div>
+								
+							</div>
 						</div>
 					</div>
 				</div>
