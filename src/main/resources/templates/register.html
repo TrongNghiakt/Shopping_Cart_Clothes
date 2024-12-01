@@ -29,7 +29,7 @@
 							
 						</div>
 						<div class="card-body">
-							<form action="/saveUser" enctype="multipart/form-data" method = "post" >
+							<form action="/saveUser" enctype="multipart/form-data" method = "post" id ="userRegister" novalidate>
 								<div class="row">
 									<div class="col">
 										<label class="form-label">Full Name</label>
@@ -37,7 +37,7 @@
 									</div>
 									<div class="col">
 										<label class="form-label">Phone Number</label>
-										<input required class="form-control" name="mobilePhone" type="number">
+										<input required class="form-control" name="mobileNumber" type="number">
 									</div>
 								</div>
 								<div class="mb-3">
@@ -68,11 +68,11 @@
 								<div class="row">
 									<div class="col">
 										<label class="form-label">Password</label>
-										<input required class="form-control" name="password" type="password">
+										<input required class="form-control" name="password" type="password" id ="pass">
 									</div>
 									<div class="col">
 										<label class="form-label">Password Confirm</label>
-										<input required class="form-control" name="cpassword" type="password">
+										<input required class="form-control" name="confirmpassword" type="password">
 									</div>
 								</div>
 								<div class="mb-3">
