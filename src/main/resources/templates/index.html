@@ -36,122 +36,131 @@
 		</div>
 		<!--End Slider-->
 
-		<!--Start Category Module-->
+		<!--< Start Category Module -->
 		<div class="container">
 			<div class="row">
-				<p class="text-center" style="margin: 16px;
-					padding-bottom: 5px;
-					height: auto;
-					font-family: ui-monospace;
-					font-weight: 600;
-					font-size: 1.8rem;
-					color: #505C3C">
-					DANH MỤC
-				</p>
-				<div class="col-md-2">
-					<div class="card rounder-circle  shadow-sm mb-5 rounded"
-						style="padding: 8px; font-size: 1.1rem; background-color: #FDFBF8; color: #505C3C; font-family: ui-monospace;">
-						<div class="text-center">
-							Spring flowers
+				<p class="text-center fs-4">Category</p>
+				<div class="col-md-2" th:each="c:${category}">
+					<div
+						class="card rounded-circle shadow-sm p-3 mb-5 bg-body-tertiary rounded ">
+						<div class="card-body text-center">
+							<img th:src="@{'img/category_img/'+${c.imageName}}" width="80%" height="300px"><br>
+							<a th:href="@{'/products?category='+${c.name}}" class="text-decoration-none">[[${c.name}]]</a>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-2">
-					<div class="card rounder-circle  shadow-sm mb-5 rounded"
-						style="padding: 8px; font-size: 1.1rem; background-color: #FDFBF8; color: #505C3C; font-family: ui-monospace;">
-						<div class="text-center">
-							Scents of summer
+
+				<!-- <div class="col-md-2">
+					<div
+						class="card rounded-circle shadow-sm p-3 mb-5 bg-body-tertiary rounded ">
+						<div class="card-body text-center">
+							<img src="img/category_img/beuty.png" width="65%" height="140px">
+							<p>Beauty</p>
+						</div>
+					</div>
+				</div> -->
+
+
+				<!-- <div class="col-md-2">
+					<div
+						class="card rounded-circle shadow-sm p-3 mb-5 bg-body-tertiary rounded ">
+						<div class="card-body text-center">
+							<img src="img/category_img/pant.png" width="65%" height="140px">
+							<p>Clothes</p>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-2">
-					<div class="card rounder-circle  shadow-sm mb-5 rounded"
-						style="padding: 8px; font-size: 1.1rem; background-color: #FDFBF8; color: #505C3C; font-family: ui-monospace;">
-						<div class="text-center">
-							Falling in fall
+ -->
+				<!-- <div class="col-md-2">
+					<div
+						class="card rounded-circle shadow-sm p-3 mb-5 bg-body-tertiary rounded ">
+						<div class="card-body text-center">
+							<img src="img/category_img/laptop.jpg" width="65%" height="140px">
+							<p>Laptop</p>
 						</div>
 					</div>
-				</div>
-				<div class="col-md-2">
-					<div class="card rounder-circle  shadow-sm mb-5 rounded"
-						style="padding: 8px; font-size: 1.1rem; background-color: #FDFBF8; color: #505C3C; font-family: ui-monospace;">
-						<div class="text-center">
-							Winter snow
+				</div> -->
+
+
+			<!-- 	<div class="col-md-2">
+					<div
+						class="card rounded-circle shadow-sm p-3 mb-5 bg-body-tertiary rounded ">
+						<div class="card-body text-center">
+							<img src="img/category_img/mobile.png" width="65%" height="140px">
+							<p>Mobile</p>
 						</div>
 					</div>
-				</div>
-				<div class="col-md-2">
-					<div class="card rounder-circle  shadow-sm mb-5 rounded"
-						style="padding: 8px; font-size: 1.1rem; background-color: #FDFBF8; color: #505C3C; font-family: ui-monospace;">
-						<div class="text-center">
-							Princess vibes
+				</div> -->
+
+				<!-- <div class="col-md-2">
+					<div
+						class="card rounded-circle shadow-sm p-3 mb-5 bg-body-tertiary rounded ">
+						<div class="card-body text-center">
+							<img src="img/category_img/groccery.jpg" width="65%"
+								height="140px">
+							<p>Grocery</p>
 						</div>
 					</div>
-				</div>
-				<div class="col-md-2">
-					<div class="card rounder-circle  shadow-sm mb-5 rounded"
-						style="padding: 8px; font-size: 1.1rem; background-color: #FDFBF8; color: #505C3C; font-family: ui-monospace;">
-						<div class="text-center">
-							Phụ kiện
-						</div>
-					</div>
-				</div>
+				</div> -->
+
+
 			</div>
 		</div>
-		<!--End Category Module-->
+		<!-- End Category Module -->
 
-		<!--Start Lastest Product Module-->
+
+		<!-- Start Latest Product Module -->
+
 		<div class="container-fluid bg-light p-3">
 			<div class="row">
-				<p class="text-center fs-4">Lastest Product</p>
+				<p class="text-center fs-4">Latest Product</p>
+
+				<div class="col-md-3" th:each="p:${products}">
+					<div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+						<div class="card-body text-center">
+							<img alt="" th:src="@{'img/product_img/'+${p.image}}" class="" width="80%"
+								height="300px">
+							<p class="text-center"><a th:href="@{'/product/'+${p.id}}" class="text-decoration-none">[[${p.title}]]</a></p>
+						</div>
+					</div>
+				</div>
+
+
+			<!-- 	<div class="col-md-3">
+					<div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+						<div class="card-body text-center">
+							<img alt="" src="img/product_img/laptop.jpg" class="" width="65%"
+								height="140px">
+							<p class="text-center">HP Laptop</p>
+						</div>
+					</div>
+				</div>
 
 				<div class="col-md-3">
 					<div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-						<div class="text-center" style="flex: 1 1 auto; padding: 16px; color: #505C3C;">
-							<img alt="" src="img/product_img/summer6.jpg" class"" width="100%">
-							<p class="text-center">Đầm đi biển</p>
+						<div class="card-body text-center">
+							<img alt="" src="img/product_img/laptop.jpg" class="" width="65%"
+								height="140px">
+							<p class="text-center">HP Laptop</p>
 						</div>
 					</div>
 				</div>
+
 				<div class="col-md-3">
 					<div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-						<div class="text-center">
-							<img alt="" src="img/product_img/summer6.jpg" class"" width="100%">
-							<p class="text-center">Đầm đi biển</p>
+						<div class="card-body text-center">
+							<img alt="" src="img/product_img/laptop.jpg" class="" width="65%"
+								height="140px">
+							<p class="text-center">HP Laptop</p>
 						</div>
 					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-						<div class="text-center">
-							<img alt="" src="img/product_img/summer6.jpg" class"" width="100%">
-							<p class="text-center">Đầm đi biển</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-						<div class="text-center">
-							<img alt="" src="img/product_img/summer6.jpg" class"" width="100%">
-							<p class="text-center">Đầm đi biển</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="card ">
-						<div class="text-center">
-							<img alt="" src="img/product_img/summer6.jpg" class"" width="100%">
-							<p class="text-center">Đầm đi biển</p>
-						</div>
-					</div>
-				</div>
+				</div> -->
+
 			</div>
 		</div>
-		<!--End Lastest Product Module-->
-		
-		
-		
+
+
+		<!-- End Latest Product Module -->
 	</section>
 </body>
-
 </html>
