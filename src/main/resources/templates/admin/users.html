@@ -8,51 +8,55 @@
 </head>
 
 <body>
-	<section>
+	<section style="min-height: 92.1vh; background-color: #f6f6ee">
 		<div class="container-fluid mt-5 p-5">
-			<div class="card card-sh">
-				<div class="card-header text-center">
-					<p class="fs-4" th:if = "${userType==1}">Users</p>
-					<p class="fs-4" th:if = "${userType==2}">Admin</p>
+			<div>
+				<div class="card-header ">
+					<p class="fs-3  text-center" th:if = "${userType==1}"
+					style="font-family: sans-serif; color: #505C3C; font-weight: bold; margin-top: 10px; margin-bottom: 20px;">USERS</p>
+					<p class="fs-3 text-center" th:if = "${userType==2}"
+					style="font-family: sans-serif; color: #505C3C; font-weight: bold; margin-top: 10px; margin-bottom: 20px;">ADMIN</p>
+					<a href="/admin/" class="text-decoration-none" style="font-family: sans-serif; color: #505C3C;"><i
+					class="fa-solid fa-arrow-left"></i> Back</a>
 					<th:block th:if="${session.succMsg}">
-						<p class="text-success fw-bold"
+						<p class="text-success fw-bold text-center"
 							style="font-size: 1.8rem; font-weight: 700;">[[${session.succMsg}]]</p>
 						<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
 					</th:block>
 
 					<th:block th:if="${session.errorMsg}">
-						<p class="text-danger fw-bold"
+						<p class="text-danger fw-bold text-center"
 							style="font-size: 1.8rem; font-weight: 700;">[[${session.errorMsg}]]</p>
 						<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
 					</th:block>
 				</div>
 				<div class="card-body">
-					<table class="table">
+					<table class="table card-sh">
 						<thead>
 							<tr>
-								<th scope="col">Sl No</th>
-								<th scope="col">Profile</th>
-								<th scope="col">Name</th>
-								<th scope="col">Email</th>
-								<th scope="col">Mobile</th>
-								<th scope="col">Address</th>
-								<th scope="col">Status</th>
-								<th scope="col">Action</th>
+								<th scope="col" style="color: #505C3C; font-size: 18px; font-family: sans-serif; font-weight: bold;">No</th>
+								<th scope="col" style="color: #505C3C; font-size: 18px; font-family: sans-serif; font-weight: bold;">Profile</th>
+								<th scope="col" style="color: #505C3C; font-size: 18px; font-family: sans-serif; font-weight: bold;">Name</th>
+								<th scope="col" style="color: #505C3C; font-size: 18px; font-family: sans-serif; font-weight: bold;">Email</th>
+								<th scope="col" style="color: #505C3C; font-size: 18px; font-family: sans-serif; font-weight: bold;">Mobile</th>
+								<th scope="col" style="color: #505C3C; font-size: 18px; font-family: sans-serif; font-weight: bold;">Address</th>
+								<th scope="col" style="color: #505C3C; font-size: 18px; font-family: sans-serif; font-weight: bold;">Status</th>
+								<th scope="col" style="color: #505C3C; font-size: 18px; font-family: sans-serif; font-weight: bold; padding-right: 100px;">Action</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr th:each="u, c : ${users}">
-								<th scope="row">[[${c.count}]]</th>
+								<th scope="row" style="color: #505C3C; font-family: sans-serif; font-weight: 700">[[${c.count}]]</th>
 								<td><img th:src="@{'/img/profile_img/'+${u.profileImage}}"
 									width="70px" height="70px"></td>
-								<td>[[${u.name}]]</td>
-								<td>[[${u.email}]]</td>
-								<td>[[${u.mobilePhone}]]</td>
-								<td>[[${u.address+','+u.city+','+u.state+','+u.pincode}]]</td>
-								<td>[[${u.isEnable}]]</td>
+								<td style="color: #505C3C; font-family: sans-serif; font-weight: 500">[[${u.name}]]</td>
+								<td style="color: #505C3C; font-family: sans-serif; font-weight: 500">[[${u.email}]]</td>
+								<td style="color: #505C3C; font-family: sans-serif; font-weight: 500">[[${u.mobilePhone}]]</td>
+								<td style="color: #505C3C; font-family: sans-serif; font-weight: 500">[[${u.address+','+u.city+','+u.state+','+u.pincode}]]</td>
+								<td style="color: #505C3C; font-family: sans-serif; font-weight: 500">[[${u.isEnable}]]</td>
 								<td><a
 									th:href="@{'/admin/updateSts?status=true&id='+${u.id}}+'&type='+${userType}"
-									class="btn btn-sm btn-primary">  Active </a>
+									class="btn btn-sm" style="background-color: #2d862d; color: white; border: none">  Active </a>
 									<a
 									th:href="@{'/admin/updateSts?status=false&id='+${u.id}}+'&type='+${userType}"
 									class="btn btn-sm btn-danger"> Inactive </a></td>

@@ -6,13 +6,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<section>
+	<section style="min-height: 92.1vh;">
 
-		<div class="container-fluid mt-5 p-5 bg-light">
+		<div class="mt-5 p-5" style="background-color: #f6f6ee">
 			<div class="row">
-				<div class="col-md-10 offset-md-1">
+				<div class="col-md-10 offset-md-1" style="background-color: #f6f6ee">
 
-					<p class="fs-3 text-center">My Profile</p>
+					<p class="fs-3 text-center"
+						style="font-family: sans-serif; color: #505C3C; font-weight: bold; margin-top: 20px; margin-bottom: 25px;">MY
+						PROFILE</p>
 
 
 					<th:block th:if="${session.succMsg}">
@@ -31,92 +33,105 @@
 
 					<hr>
 					<div class="text-center">
-						<img alt="" th:src="@{'../img/profile_img/'+${user.profileImage}}"
+						<img alt="" th:src="@{'/img/profile_img/'+${user.profileImage}}"
 							class="border p-2"
 							style="width: 130px; height: 130px; border-radius: 50%">
 					</div>
 
-					<div class="col-md-8 offset-md-2 mt-4">
-						<table class="table table-borderless">
+					<div class="col-md-8 offset-md-2 mt-4"
+						style="font-size: 20px; font-family: sans-serif; font-weight: 600; color: #505C3C">
+						<table
+							style="background-color: #f6f6ee !important; margin-left: auto; margin-right: auto;">
 
-							<tbody>
+							<tbody style="padding-left: 1000px">
 								<form action="/admin/update-profile" method="post"
 									enctype="multipart/form-data">
 									<tr>
 										<th scope="row">Name</th>
-										<td>:</td>
+										<td style="padding-left: 50px; margin-bottom: 20px">:</td>
 										<td><input type="text" name="name" class="form-control"
-											th:value="${user.name}"></td>
+											required th:value="${user.name}"
+											style="width: 600px; margin-bottom: 7px; margin-top: 7px; color: #6b7b51"></td>
 									</tr>
 
 									<tr>
 										<th scope="row">Mobile Number</th>
-										<td>:</td>
-										<td><input type="text" name="mobilePhone"
-											class="form-control" th:value="${user.mobilePhone}"></td>
+										<td style="padding-left: 50px; margin-bottom: 20px">:</td>
+										<td><input type="text" name="mobilePhone" required
+											class="form-control" th:value="${user.mobilePhone}"
+											style="width: 600px; margin-bottom: 7px; margin-top: 7px; color: #6b7b51"></td>
 									</tr>
 
 									<tr>
 										<th scope="row">Email</th>
-										<td>:</td>
+										<td style="padding-left: 50px; margin-bottom: 20px">:</td>
 										<td><input type="text" name="email" class="form-control"
-											readonly th:value="${user.email}"></td>
+											required readonly th:value="${user.email}"
+											style="width: 600px; margin-bottom: 7px; margin-top: 7px; color: #6b7b51"></td>
 									</tr>
 
 									<tr>
 										<th scope="row">Address</th>
-										<td>:</td>
-										<td><input type="text" name="address"
-											class="form-control" th:value="${user.address}"></td>
+										<td style="padding-left: 50px; margin-bottom: 20px">:</td>
+										<td><input type="text" name="address" required
+											class="form-control" th:value="${user.address}"
+											style="width: 600px; margin-bottom: 7px; margin-top: 7px; color: #6b7b51"></td>
 									</tr>
 
 									<tr>
 										<th scope="row">City</th>
-										<td>:</td>
+										<td style="padding-left: 50px; margin-bottom: 20px">:</td>
 										<td><input type="text" name="city" class="form-control"
-											th:value="${user.city}"></td>
+											required th:value="${user.city}"
+											style="width: 600px; margin-bottom: 7px; margin-top: 7px; color: #6b7b51"></td>
 									</tr>
 
 									<tr>
 										<th scope="row">State</th>
-										<td>:</td>
+										<td style="padding-left: 50px; margin-bottom: 20px">:</td>
 										<td><input type="text" name="state" class="form-control"
-											th:value="${user.state}"></td>
+											required th:value="${user.state}"
+											style="width: 600px; margin-bottom: 7px; margin-top: 7px; color: #6b7b51"></td>
 									</tr>
 
 									<tr>
 										<th scope="row">Pincode</th>
-										<td>:</td>
-										<td><input type="text" name="pincode"
-											class="form-control" th:value="${user.pincode}"></td>
+										<td style="padding-left: 50px; margin-bottom: 20px">:</td>
+										<td><input type="text" name="pincode" required
+											class="form-control" th:value="${user.pincode}"
+											style="width: 600px; margin-bottom: 7px; margin-top: 7px; color: #6b7b51"></td>
 									</tr>
 
 									<tr>
 										<th scope="row">Image</th>
-										<td>:</td>
+										<td style="padding-left: 50px; margin-bottom: 20px">:</td>
 										<td><input type="file" name="img" class="form-control"
-											value=""></td>
+											value=""
+											style="width: 600px; margin-bottom: 7px; margin-top: 7px; color: #6b7b51"></td>
 									</tr>
 
 									<tr>
 										<th scope="row">Role</th>
-										<td>:</td>
+										<td style="padding-left: 50px; margin-bottom: 20px">:</td>
 										<td><input type="text" name="role" class="form-control"
-											readonly th:value="${user.role}"></td>
+											readonly th:value="${user.role}"
+											style="width: 600px; margin-bottom: 7px; margin-top: 7px; color: #6b7b51"></td>
 									</tr>
 
 									<tr>
 										<th scope="row">Account Status</th>
-										<td>:</td>
+										<td style="padding-left: 50px; margin-bottom: 20px">:</td>
 										<td><input type="text" name="isEnable"
 											class="form-control" readonly th:value="${user.isEnable}"><input
-											type="hidden" th:value="${user.id}" name="id"></td>
+											type="hidden" th:value="${user.id}" name="id"
+											style="width: 600px; margin-bottom: 7px; margin-top: 7px; color: #6b7b51"></td>
 									</tr>
 
-									<tr>
+									<tr class="text-center">
+										<th></th>
 										<td></td>
-										<td class="text-center">
-											<button class="btn btn-sm bg-primary text-light">Update</button>
+										<td><button class="btn btn-sm"
+												style="color: white; font-weight: bold; background-color: #505C3C; font-size: 20px; padding: 5px 20px; margin: 30px 16px 30px -200px;">Update</button>
 										</td>
 									</tr>
 								</form>
@@ -128,40 +143,51 @@
 				<hr>
 				<div class="col-md-10 offset-md-1 mt-1">
 					<div class="row">
-						<p class="text-center fs-3">Change Password</p>
-						<div class="col-md-6 offset-md-3">
-							<table class="table table-borderless">
+						<p class="text-center fs-3"
+							style="font-family: sans-serif; color: #505C3C; font-weight: bold; margin-top: 20px; margin-bottom: 25px;">CHANGE
+							PASSWORD</p>
+						<div class="col-md-6 offset-md-3"
+							style="font-size: 20px; font-family: sans-serif; font-weight: 600; color: #505C3C">
+							<table
+								style="background-color: #f6f6ee !important; margin-left: auto; margin-right: auto;">
 
 								<tbody>
 									<form action="/admin/change-password" method="post">
 										<tr>
-											<th scope="row">Current Password</th>
+											<th scope="row" style="padding-right: 50px">Current
+												Password</th>
 
-											<td><input type="password" name="currentPassword"
-												class="form-control"></td>
+											<td><input
+												style="width: 300px; margin-bottom: 7px; margin-top: 7px; color: #6b7b51"
+												type="password" name="currentPassword" class="form-control"></td>
 										</tr>
 
 										<tr>
 											<th scope="row">New Password</th>
 
-											<td><input type="password" name="newPassword"
-												class="form-control"></td>
+											<td><input
+												style="width: 300px; margin-bottom: 7px; margin-top: 7px; color: #6b7b51"
+												type="password" name="newPassword" class="form-control"></td>
 										</tr>
 
 										<tr>
 											<th scope="row">Confirm Password</th>
 
-											<td><input type="password" name="confirmPassword"
-												class="form-control"></td>
+											<td><input
+												style="width: 300px; margin-bottom: 7px; margin-top: 7px; color: #6b7b51"
+												type="password" name="confirmPassword" class="form-control"></td>
 										</tr>
 										<tr>
 											<td></td>
 											<td class="text-center">
-												<button class="btn btn-sm bg-primary text-light col-md-4">Update</button>
+												<button class="btn btn-sm"
+													style="color: white; font-weight: bold; background-color: #505C3C; font-size: 20px; padding: 5px 20px; margin: 30px 16px 30px 0px;">Update</button>
 											</td>
 
 										</tr>
 									</form>
+
+
 								</tbody>
 							</table>
 						</div>
@@ -170,5 +196,6 @@
 			</div>
 		</div>
 	</section>
+
 </body>
 </html>

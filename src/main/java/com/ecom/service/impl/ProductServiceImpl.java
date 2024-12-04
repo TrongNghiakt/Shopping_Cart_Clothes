@@ -12,11 +12,16 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ecom.model.OrderAddress;
 import com.ecom.model.Product;
+import com.ecom.model.ProductOrder;
+import com.ecom.model.UserDtls;
+import com.ecom.repository.ProductOrderRepository;
 import com.ecom.repository.ProductRepository;
 import com.ecom.service.ProductService;
 
@@ -25,6 +30,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private ProductRepository productRepository;
+
+	@Autowired
+	private ProductOrderRepository orderRepository;
 
 	@Override
 	public Product saveProduct(Product product) {
@@ -89,10 +97,10 @@ public class ProductServiceImpl implements ProductService {
 					Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "product_img" + File.separator
 							+ image.getOriginalFilename());
 					Files.copy(image.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				// System.out.println(path);
 
 			}
 			return product;
@@ -150,6 +158,31 @@ public class ProductServiceImpl implements ProductService {
 		 */
 
 		return pageProduct;
+	}
+
+	@Override
+	public List<ProductOrder> getBestSellingProducts(int limit) {
+		Pageable pageable = PageRequest.of(0, limit, Sort.by(Sort.Order.desc("quantity")));
+		Page<ProductOrder> productPage = orderRepository.findAll(pageable);
+		return productPage.getContent();
+	}
+
+	@Override
+	public void placeOrder(Integer productId, Integer quantity, String orderId, UserDtls user,
+			OrderAddress orderAddress, String paymentType) {
+		Product product = productRepository.findById(productId).orElse(null);
+
+		if (product.getStock() >= quantity) {
+			product.setStock(product.getStock() - quantity);
+
+			if (product.getStock() < 0) {
+				product.setIsActive(false);
+			}
+
+			productRepository.save(product);
+
+		}
+
 	}
 
 }

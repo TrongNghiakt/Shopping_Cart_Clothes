@@ -1,85 +1,109 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
 
 <head>
-	<meta charset="ISO-8859-1">
-	<title>Insert title here</title>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
 </head>
 
 <body>
-	<section>
+	<section style="min-height: 92.1vh; background-color: #f6f6ee">
 
 		<div class="container mt-5 p-5">
 			<div class="row">
 				<div class="col-md-7 p-2 offset-md-2">
-					<div class="card shadow p-3 mb-5 bg-body-tertiary rounded">
+					<div class="shadow p-3 mb-5 bg-body-tertiary rounded">
 						<div class="card-header text-center">
-							<p class="fs-4">Add admin</p>
+							<p class="fs-3"
+								style="font-family: sans-serif; color: #505C3C; font-weight: bold; margin-top: 10px; margin-bottom: 20px;">ADD
+								ADMIN</p>
 							<th:block th:if="${session.succMsg}">
-								<p class="text-success fw-bold" style="font-size: 1.8rem; font-weight: 700;">[[${session.succMsg}]]</p>
+								<p class="text-success fw-bold text-center"
+									style="font-size: 1.8rem; font-weight: 700;">[[${session.succMsg}]]</p>
 								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
 							</th:block>
 
 							<th:block th:if="${session.errorMsg}">
-								<p class="text-danger fw-bold" style="font-size: 1.8rem; font-weight: 700;">[[${session.errorMsg}]]</p>
+								<p class="text-danger fw-bold text-center"
+									style="font-size: 1.8rem; font-weight: 700;">[[${session.errorMsg}]]</p>
 								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
-							
 						</div>
 						<div class="card-body">
-							<form action="/admin/save-admin" enctype="multipart/form-data" method = "post" >
+							<form action="/admin/save-admin" enctype="multipart/form-data"
+								method="post">
 								<div class="row">
 									<div class="col">
-										<label class="form-label">Full Name</label>
-										<input required class="form-control" name="name" type="text">
+										<label class="form-label"
+											style="font-family: sans-serif; color: #505C3C; font-size: 19px; font-weight: 500">Full
+											Name</label> <input style="color: #6b6b47;" required class="form-control" name="name"
+											type="text">
 									</div>
 									<div class="col">
-										<label class="form-label">Phone Number</label>
-										<input required class="form-control" name="mobilePhone" type="number">
+										<label class="form-label"
+											style="font-family: sans-serif; color: #505C3C; font-size: 19px; font-weight: 500">Phone
+											Number</label> <input style="color: #6b6b47;" required class="form-control"
+											name="mobilePhone" type="number">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col">
+										<label class="form-label"
+											style="font-family: sans-serif; color: #505C3C; font-size: 19px; font-weight: 500">Email</label>
+										<input style="color: #6b6b47;" required class="form-control" name="email" type="email">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col">
+										<label class="form-label"
+											style="font-family: sans-serif; color: #505C3C; font-size: 19px; font-weight: 500">Address</label>
+										<input style="color: #6b6b47;" required class="form-control" name="address"
+											type="text">
+									</div>
+									<div class="col">
+										<label class="form-label"
+											style="font-family: sans-serif; color: #505C3C; font-size: 19px; font-weight: 500">City</label>
+										<input style="color: #6b6b47;" required class="form-control" name="city" type="text">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col">
+										<label class="form-label"
+											style="font-family: sans-serif; color: #505C3C; font-size: 19px; font-weight: 500">State</label>
+										<input style="color: #6b6b47;" required class="form-control" name="state" type="text">
+									</div>
+									<div class="col">
+										<label class="form-label"
+											style="font-family: sans-serif; color: #505C3C; font-size: 19px; font-weight: 500">Pin
+											Code</label> <input required class="form-control" name="pincode"
+											type="number">
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col">
+										<label class="form-label"
+											style="font-family: sans-serif; color: #505C3C; font-size: 19px; font-weight: 500">Password</label>
+										<input required class="form-control" name="password"
+											type="password">
+									</div>
+									<div class="col">
+										<label class="form-label"
+											style="font-family: sans-serif; color: #505C3C; font-size: 19px; font-weight: 500">Password
+											Confirm</label> <input required class="form-control" name="cpassword"
+											type="password">
 									</div>
 								</div>
 								<div class="mb-3">
-									<label class="form-label">Email</label>
-									<input required class="form-control" name="email" type="email">
+									<label class="form-label"
+										style="font-family: sans-serif; color: #505C3C; font-size: 19px; font-weight: 500">Image
+										Profile</label> <input style="color: #6b6b47;" class="form-control" name="img" type="file">
 								</div>
-								<div class="row">
-									<div class="col">
-										<label class="form-label">Address</label>
-										<input required class="form-control" name="address" type="text">
-									</div>
-									<div class="col">
-										<label class="form-label">City</label>
-										<input required class="form-control" name="city" type="text">
-									</div>
-								</div>
-								<div class="row">
-									<div class="col">
-										<label class="form-label">State</label>
-										<input required class="form-control" name="state" type="text">
-									</div>
-									<div class="col">
-										<label class="form-label">Pin Code</label>
-										<input required class="form-control" name="pincode" type="number">
-									</div>
-								</div>
-								
-								<div class="row">
-									<div class="col">
-										<label class="form-label">Password</label>
-										<input required class="form-control" name="password" type="password">
-									</div>
-									<div class="col">
-										<label class="form-label">Password Confirm</label>
-										<input required class="form-control" name="cpassword" type="password">
-									</div>
-								</div>
-								<div class="mb-3">
-									<label class="form-label">Image Profile</label>
-									<input class="form-control" name="img" type="file">
-								</div>
-								<button type="submit" class="btn bg-primary text-white col-md-12">Register</button>
+								<button type="submit"
+									class="btn text-white col-md-12" style="background-color: #505C3C; font-weight: bold">Register</button>
 							</form>
 						</div>
-						
+
 					</div>
 				</div>
 			</div>

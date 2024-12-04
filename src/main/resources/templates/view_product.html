@@ -11,18 +11,15 @@
 </head>
 
 <body>
-	<section>
+	<section style="min-height: 92.1vh; background-color: #f6f6ee">
 		<div class="container py-5 mt-5">
-			<div class="card shadow-sm p-5 bg-body-tertiary rounded">
+			<div class="card-sh bg-body-tertiary rounded">
 				<div class="row align-items-center">
 					<th:block th:if="${session.succMsg}">
 						<p class="text-success fw-bold alert alert-success text-center"
 							style="font-size: 1.8rem; font-weight: 700;">[[${session.succMsg}]]</p>
 						<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
 					</th:block>
-
-			
-
 
 					<th:block th:if="${session.errorMsg}">
 						<p class="text-danger fw-bold alert alert-danger text-center"
@@ -32,41 +29,72 @@
 
 
 					<!-- Image Section -->
-					<div class="col-md-6 text-center mb-4 mb-md-0">
-						<img src="/img/product_img/spring8.jpg" alt="Product Image"
+					<div class="col-md-5">
+						<img alt="" th:src="@{'/img/product_img/'+${product.image}}"
 							class="img-fluid rounded shadow"
-							style="max-height: 500px; object-fit: cover;">
+							style="max-height: 685px; width: 470px; object-fit: cover;">
 					</div>
 
 
-
-
-
-
 					<!-- Product Details Section -->
-					<div class="col-md-6">
-						<h2 class="fs-3 fw-bold mb-3">[[${product.title}]]</h2>
-						<p>
-							<span class="fw-bold">Description:</span>
-							[[${product.description}]]
+					<div class="col-md-7" style="margin-top: 0; padding-right: 100px;">
+						<h2 class="fw-bold mb-4"
+							style="color: #505C3C; font-family: sans-serif; font-size: 29px">[[${product.title}]]</h2>
+						<p style="margin-bottom: 2px;">
+							<span class="fw-bold" style="font-size: 19.5px; color: #505C3C;">Description:</span>
+						<p style="font-size: 16.5px; color: #505C3C; margin-bottom: 20px;">[[${product.description}]]</p>
 						</p>
-						<p>
-							<span class="fw-bold">Product Details:</span><br> Status:
-							<th:block th:if="${product.stock > 0}">
-								<span class="badge bg-success">Available</span>
-							</th:block>
-							<th:block th:unless="${product.stock > 0}">
-								<span class="badge bg-warning text-dark">Out of stock</span>
-							</th:block>
-							<br>Category: [[${product.category}]]<br> Policy: 7
-							Days Replacement & Return
-						</p>
-						<p class="fs-5 fw-bold">
-							Price: <i class="fas fa-dollar-sign"></i>
-							[[${product.discountPrice}]] <span
-								class="text-decoration-line-through text-secondary">[[${product.price}]]</span>
-							<span class="text-success">[[${product.discount}]]% off</span>
-						</p>
+						<div>
+							<span class="fw-bold" style="font-size: 19.5px; color: #505C3C;">Product
+								Details:</span><br>
+							<div class="row">
+								<div class="col" style="flex: 0 0 auto; width: 11.666667%;">
+									<div
+										style="font-size: 19px; color: #505C3C; padding: 0; font-weight: 600">Status</div>
+								</div>
+								<div class="col" style="font-size: 19px;">:</div>
+								<div class="col-10" style="padding-top: 4px;">
+									<th:block th:if="${product.stock > 0}">
+										<span class="badge bg-success">Available</span>
+									</th:block>
+									<th:block th:unless="${product.stock > 0}">
+										<span class="badge bg-warning text-dark">Out of stock</span>
+									</th:block>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col" style="flex: 0 0 auto; width: 11.666667%;">
+									<div
+										style="font-size: 19px; color: #505C3C; padding: 0; font-weight: 600">Category</div>
+								</div>
+								<div class="col" style="font-size: 19px;">:</div>
+								<div class="col-10"
+									style="padding-top: 4px; font-size: 16.5px; color: #505C3C;">[[${product.category}]]</div>
+							</div>
+							<div class="row">
+								<div class="col" style="flex: 0 0 auto; width: 11.666667%;">
+									<div
+										style="font-size: 19px; color: #505C3C; padding: 0; font-weight: 600">Policy</div>
+								</div>
+								<div class="col" style="font-size: 19px;">:</div>
+								<div class="col-10"
+									style="padding-top: 4px; font-size: 16.5px; color: #505C3C;">7
+									Days Replacement & Return</div>
+							</div>
+						</div>
+
+						<div class="fw-bold"
+							style="font-size: 19.5px; color: #505C3C; margin-top: 20px; margin-bottom: 40px">
+							<div class="row">
+								<div class="col" style="margin-top: 5px">Price:</div>
+
+							</div>
+							<div class="text-center">
+								<span style="color: #993300; font-size: 25px">$[[${product.discountPrice}]]
+								</span><span class="text-decoration-line-through text-secondary">[[${product.price}]]</span>
+								<span class="text-success">[[${product.discount}]]% off</span>
+							</div>
+						</div>
 
 						<!-- Features -->
 						<div class="row text-center mb-4">
@@ -75,33 +103,57 @@
 								<p>Cash On Delivery</p>
 							</div>
 							<div class="col-md-4">
-								<i class="fas fa-undo-alt fa-2x text-warning"></i>
+								<i class="fas fa-undo-alt fa-2x" style="color: #e65c00"></i>
 								<p>Return Available</p>
 							</div>
 							<div class="col-md-4">
-								<i class="fas fa-truck fa-2x text-primary"></i>
+								<i class="fas fa-truck fa-2x" style="color: #0099cc"></i>
 								<p>Free Shipping</p>
 							</div>
 						</div>
 
 						<!-- Add to Cart Button -->
 						<th:block th:if="${product.stock > 0}">
-							<th:block th:if="${user==null}">
-								<a href="/signin" class="btn btn-danger col-md-12">Add To
+							<th:block th:if="${user == null}">
+								<a href="/signin" class="btn btn-success col-md-12">Add To
 									Cart</a>
 							</th:block>
 
+							<th:block th:unless="${user == null}">
+								<th:block th:if="${user.role == 'ROLE_USER'}">
+									<a
+										th:href="@{'/user/addCart?pid=' + ${product.id} + '&uid=' + ${user.id}}"
+										class="btn text-white btn-success col-md-12"
+										style="font-weight: bold; font-size: 20px; margin-bottom: 10px;">Add
+										To Cart</a>
+								</th:block>
 
-							<th:block th:unless="${user==null}">
-								<a
-									th:href="@{'/user/addCart?pid='+${product.id}+'&uid='+${user.id}}"
-									class="btn btn-danger col-md-12">Add To Cart</a>
+								<th:block th:unless="${user.role == 'ROLE_USER'}">
+									<a href="#" class="btn text-white col-md-12"
+										style="font-weight: 600; font-size: 20px; margin-bottom: 10px; cursor: not-allowed; background: #8c8c8c">Cannot
+										add to cart</a>
+								</th:block>
 							</th:block>
 						</th:block>
-						<th:block th:unless="${product.stock > 0}">
-							<a href="#" class="btn btn-warning text-white col-md-12">Out
-								of Stock</a>
+
+
+						<!-- Handle Out of Stock for User Roles -->
+						<th:block th:if="${product.stock == 0}">
+							<th:block th:if="${user != null}">
+								<th:block th:if="${user.role == 'ROLE_USER'}">
+									<a href="#" class="btn text-white col-md-12"
+										style="font-weight: 600; font-size: 20px; margin-bottom: 10px; cursor: not-allowed; background: #8c8c8c">
+										Out of Stock </a>
+								</th:block>
+
+								<th:block th:if="${user.role == 'ROLE_ADMIN'}">
+									<a href="#" class="btn text-white col-md-12"
+										style="font-weight: 600; font-size: 20px; margin-bottom: 10px; cursor: not-allowed; background: #8c8c8c">
+										Cannot add to cart </a>
+								</th:block>
+							</th:block>
 						</th:block>
+
 
 					</div>
 				</div>

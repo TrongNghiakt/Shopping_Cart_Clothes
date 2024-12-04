@@ -7,24 +7,24 @@
 </head>
 
 <body>
-	<section>
+	<section style="min-height: 92.1vh; background-color: #f6f6ee">
 
 		<div class="container mt-5 p-5">
 			<div class="row">
 				<div class="col-md-5 p-5">
-					<img alt="" src="img/logo1.jpeg" width="100%" height="400px">
+					<img alt="" src="img/Logo2.png" width="100%" style="margin-top: 180px; margin-left: -90px">
 				</div>
 				<div class="col-md-7 p-2">
-					<div class="card shadow p-3 mb-5 bg-body-tertiary rounded">
+					<div class="card-sh p-3 mb-5 bg-body-tertiary rounded">
 						<div class="card-header text-center">
-							<p class="fs-4">Register</p>
+							<p class="fs-3" style="font-family: sans-serif; color: #505C3C; font-weight: bold; margin-top: 15px; margin-bottom: 20px;">REGISTER</p>
 							<th:block th:if="${session.succMsg}">
-								<p class="text-success fw-bold" style="font-size: 1.8rem; font-weight: 700;">[[${session.succMsg}]]</p>
+								<p class="text-success fw-bold text-center" style="font-size: 1.8rem; font-weight: 700;">[[${session.succMsg}]]</p>
 								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
 							</th:block>
 
 							<th:block th:if="${session.errorMsg}">
-								<p class="text-danger fw-bold" style="font-size: 1.8rem; font-weight: 700;">[[${session.errorMsg}]]</p>
+								<p class="text-danger fw-bold text-center" style="font-size: 1.8rem; font-weight: 700;">[[${session.errorMsg}]]</p>
 								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
 							
 						</div>
@@ -32,59 +32,59 @@
 							<form action="/saveUser" enctype="multipart/form-data" method = "post" id ="userRegister" novalidate>
 								<div class="row">
 									<div class="col">
-										<label class="form-label">Full Name</label>
-										<input required class="form-control" name="name" type="text">
+										<label class="form-label" style="color: #505C3C; font-weight: 600; font-size: 20px">Full Name</label>
+										<input required class="form-control" name="name" type="text" style="color: #6b6b47;">
 									</div>
 									<div class="col">
-										<label class="form-label">Phone Number</label>
-										<input required class="form-control" name="mobileNumber" type="number">
+										<label class="form-label" style="color: #505C3C; font-weight: 600; font-size: 20px">Phone Number</label>
+										<input required class="form-control" name="mobileNumber" type="number" style="color: #6b6b47;">
 									</div>
 								</div>
-								<div class="mb-3">
-									<label class="form-label">Email</label>
-									<input required class="form-control" name="email" type="email">
-								</div>
-								<div class="row">
-									<div class="col">
-										<label class="form-label">Address</label>
-										<input required class="form-control" name="address" type="text">
-									</div>
-									<div class="col">
-										<label class="form-label">City</label>
-										<input required class="form-control" name="city" type="text">
-									</div>
+								<div class="col">
+									<label class="form-label" style="color: #505C3C; font-weight: 600; font-size: 20px">Email</label>
+									<input required class="form-control" name="email" type="email" style="color: #6b6b47;">
 								</div>
 								<div class="row">
 									<div class="col">
-										<label class="form-label">State</label>
-										<input required class="form-control" name="state" type="text">
+										<label class="form-label" style="color: #505C3C; font-weight: 600; font-size: 20px">Address</label>
+										<input required class="form-control" name="address" type="text" style="color: #6b6b47;">
 									</div>
 									<div class="col">
-										<label class="form-label">Pin Code</label>
-										<input required class="form-control" name="pincode" type="number">
+										<label class="form-label" style="color: #505C3C; font-weight: 600; font-size: 20px">City</label>
+										<input required class="form-control" name="city" type="text" style="color: #6b6b47;">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col">
+										<label class="form-label" style="color: #505C3C; font-weight: 600; font-size: 20px">State</label>
+										<input required class="form-control" name="state" type="text" style="color: #6b6b47;">
+									</div>
+									<div class="col">
+										<label class="form-label" style="color: #505C3C; font-weight: 600; font-size: 20px">Pin Code</label>
+										<input required class="form-control" name="pincode" type="number" style="color: #6b6b47;">
 									</div>
 								</div>
 								
 								<div class="row">
 									<div class="col">
-										<label class="form-label">Password</label>
-										<input required class="form-control" name="password" type="password" id ="pass">
+										<label class="form-label" style="color: #505C3C; font-weight: 600; font-size: 20px">Password</label>
+										<input required class="form-control" name="password" type="password" id ="pass" style="color: #6b6b47;">
 									</div>
 									<div class="col">
-										<label class="form-label">Password Confirm</label>
-										<input required class="form-control" name="confirmpassword" type="password">
+										<label class="form-label" style="color: #505C3C; font-weight: 600; font-size: 20px">Password Confirm</label>
+										<input required class="form-control" name="confirmpassword" type="password" style="color: #6b6b47;">
 									</div>
 								</div>
 								<div class="mb-3">
-									<label class="form-label">Image Profile</label>
-									<input class="form-control" name="img" type="file">
+									<label class="form-label" style="color: #505C3C; font-weight: 600; font-size: 20px">Image Profile</label>
+									<input class="form-control" name="img" type="file" style="color: #6b6b47;">
 								</div>
-								<button type="submit" class="btn bg-primary text-white col-md-12">Register</button>
+								<button type="submit" class="btn text-white col-md-12" style="background-color: #505C3C; font-weight: bold; font-size: 20px; margin-bottom: 10px;">Register</button>
 							</form>
 						</div>
-						<div class="card-footer text-center">
+						<div class="card-footer text-center" style="color: #505C3C; margin-bottom: 0">
 							Already have an account?
-							<a href="/signin" class="text-decoration-none">Login</a>
+							<a href="/signin" style="color: #a3a375; text-decoration: underline; font-style: italic;">Login</a>
 						</div>
 					</div>
 				</div>

@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ecom.model.Category;
 import com.ecom.model.Product;
+import com.ecom.model.ProductOrder;
 import com.ecom.model.UserDtls;
 import com.ecom.service.CartService;
 import com.ecom.service.CategoryService;
@@ -41,6 +42,7 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class HomeController {
+
 	@Autowired
 	private CategoryService categoryService;
 
@@ -76,11 +78,10 @@ public class HomeController {
 	@GetMapping("/")
 	public String index(Model m) {
 		List<Category> allActiveCategory = categoryService.getAllActiveCategory().stream()
-				.sorted((c1, c2) -> c2.getId().compareTo(c1.getId())).limit(6).toList();
-		List<Product> allActiveProducts = productService.getAllActiveProducts("").stream()
-				.sorted((p1, p2) -> p2.getId().compareTo(p1.getId())).limit(8).toList();
+				.sorted((c1, c2) -> c2.getId().compareTo(c1.getId())).limit(8).toList();
+		List<ProductOrder> bestSellingProducts = productService.getBestSellingProducts(12);
 		m.addAttribute("category", allActiveCategory);
-		m.addAttribute("products", allActiveProducts);
+		m.addAttribute("bestSellingProducts", bestSellingProducts);
 
 		return "index";
 	}
@@ -98,7 +99,7 @@ public class HomeController {
 	@GetMapping("/products")
 	public String products(Model m, @RequestParam(value = "category", defaultValue = "") String category,
 			@RequestParam(name = "pageNo", defaultValue = "0") Integer pageNo,
-			@RequestParam(name = "pageSize", defaultValue = "9") Integer pageSize,
+			@RequestParam(name = "pageSize", defaultValue = "8") Integer pageSize,
 			@RequestParam(defaultValue = "") String ch) {
 
 		List<Category> categories = categoryService.getAllActiveCategory();
@@ -133,6 +134,7 @@ public class HomeController {
 	public String product(@PathVariable int id, Model m) {
 		Product productById = productService.getProductById(id);
 		m.addAttribute("product", productById);
+
 		return "view_product";
 	}
 
@@ -146,11 +148,13 @@ public class HomeController {
 			session.setAttribute("errorMsg", "Email already exist!");
 		} else {
 			String imageName = file.isEmpty() ? "default.jpg" : file.getOriginalFilename();
+
 			user.setProfileImage(imageName);
 			UserDtls saveUser = userService.saveUser(user);
 
 			if (!ObjectUtils.isEmpty(saveUser)) {
 				if (!file.isEmpty()) {
+
 					File saveFile = new ClassPathResource("static/img").getFile();
 
 					Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "profile_img" + File.separator

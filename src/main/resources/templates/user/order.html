@@ -6,111 +6,113 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<section>
+	<section style="min-height: 92.1vh; background-color: #f6f6ee">
 
-		<div class="container mt-5 p-5">
+		<div class="container mt-5">
 			<form action="/user/save-order" method="post" id="orders" novalidate>
-				<div class="row">
+				<div class="row" style="padding: 10px">
 
-					<div class="col-md-6">
+					<div class="col-md-6"  style="margin-top: 40px">
 
 
 						<div class="mb-3 row">
-							<p class="text-center fs-4">Billing Address</p>
+							<p class="text-center fs-4" style="font-family: sans-serif; color: #505C3C; font-weight: bold; margin-top: 20px; margin-bottom: 40px;">
+							BILLING ADDRESS</p>
 							<hr>
-							<div class="col p-1">
+							<div class="col p-1" style="font-family: sans-serif; color: #505C3C; font-weight: bold; font-size: 18px">
 								<label>First Name</label> <input type="text" name="firstName"
 									required class="form-control mt-1">
 							</div>
-							<div class="col p-1">
+							<div class="col p-1" style="font-family: sans-serif; color: #505C3C; font-weight: bold; font-size: 18px">
 								<label>Last Name</label> <input type="text" name="lastName"
 									required class="form-control mt-1">
 							</div>
 						</div>
 
 						<div class="mb-3 row">
-							<div class="col p-1">
+							<div class="col p-1" style="font-family: sans-serif; color: #505C3C; font-weight: bold; font-size: 18px">
 								<label>Email</label> <input type="email" name="email" required
 									class="form-control col">
 							</div>
-							<div class="col p-1">
+							<div class="col p-1" style="font-family: sans-serif; color: #505C3C; font-weight: bold; font-size: 18px">
 								<label>Mobile Number</label> <input type="text"
-									name="mobileNo" required class="form-control col ms-2">
+									name="mobileNo" required class="form-control col">
 							</div>
 						</div>
 
 						<div class="mb-3 row">
-							<div class="col p-1">
+							<div class="col p-1" style="font-family: sans-serif; color: #505C3C; font-weight: bold; font-size: 18px">
 								<label>Address</label> <input type="text" name="address"
 									required class="form-control col">
 							</div>
-							<div class="col p-1">
+							<div class="col p-1" style="font-family: sans-serif; color: #505C3C; font-weight: bold; font-size: 18px">
 								<label>City</label> <input type="text" name="city" required
-									class="form-control col ms-2">
+									class="form-control col">
 							</div>
 						</div>
 						<div class="mb-3 row">
-							<div class="col p-1">
+							<div class="col p-1" style="font-family: sans-serif; color: #505C3C; font-weight: bold; font-size: 18px">
 								<label>State</label> <input type="text" name="state" required
 									class="form-control col">
 							</div>
-							<div class="col p-1">
+							<div class="col p-1" style="font-family: sans-serif; color: #505C3C; font-weight: bold; font-size: 18px">
 								<label>Pincode</label> <input type="number" name="pincode"
-									required class="form-control col ms-2">
+									required class="form-control col">
 							</div>
 						</div>
 						<!-- </form> -->
 
 					</div>
-					<div class="col-md-6">
-						<p class="text-center fs-4">Payment Type</p>
-						<hr>
-						<div class="card">
+					<div class="col-md-6" style="margin-top: 40px">
+						<p class="text-center fs-4" style="font-family: sans-serif; color: #505C3C; margin-left: 40px; font-weight: bold; margin-top: 20px; margin-bottom: 40px;">
+						PAYMENT TYPE</p>
+						<hr  style="margin-left: 40px">
+						<div class="card-div" style="margin-left: 40px">
 							<div class="card-body">
 								<table class="table table-borderless">
 									<tbody>
 										<tr>
-											<td>Total price</td>
+											<td style="font-family: sans-serif; color: #505C3C; font-size: 18px">Total price</td>
 											<td>:</td>
-											<td>&#36; [[${orderPrice}]]</td>
+											<td style="font-family: sans-serif; color: #505C3C; font-size: 18px">&#36; [[${orderPrice}]]</td>
 										</tr>
 										<tr>
-											<td>Delivery Fee</td>
+											<td style="font-family: sans-serif; color: #505C3C; font-size: 18px">Delivery Fee</td>
 											<td>:</td>
-											<td>&#36; 250</td>
+											<td style="font-family: sans-serif; color: #505C3C; font-size: 18px">&#36; 5</td>
 										</tr>
 
 										<tr>
-											<td>Tax</td>
+											<td style="font-family: sans-serif; color: #505C3C; font-size: 18px">Tax</td>
 											<td>:</td>
-											<td>&#36; 100</td>
+											<td style="font-family: sans-serif; color: #505C3C; font-size: 18px">&#36; 10</td>
 										</tr>
 
 										<tr class="border-top">
-											<td>Total Price</td>
+											<td style="font-family: sans-serif; color: #505C3C; font-weight: bold; font-size: 18px">Total Price</td>
 											<td>:</td>
-											<td>&#36; [[${totalOrderPrice}]]</td>
+											<td style="font-family: sans-serif; color: #505C3C; font-weight: bold; font-size: 18px">&#36; [[${totalOrderPrice}]]</td>
 										</tr>
 									</tbody>
 								</table>
 							</div>
 						</div>
 
-						<div class="card shadow p-3 mb-5 mt-2 bg-body-tertiary rounded">
+						<div class=" mb-5 mt-2 rounded" style="margin-left: 40px">
 
 							<div class="card-body">
 								<!-- <form action="/login" method="post"> -->
 								<div class="mb-3">
-									<label class="form-label">Select Payment Type</label> <select
+									<label class="form-label" style="margin-top: 8px; font-family: sans-serif; color: #505C3C; font-weight: bold; font-size: 18px">Select Payment Type</label> <select
 										required name="paymentType" class="form-control">
-										<option value="">--select--</option>
-										<option value="COD">Cash On Delivery</option>
-										<option value="ONLINE">Online Payment</option>
+										<option value="" style="font-family: sans-serif; color: #505C3C; font-size: 18px">--select--</option>
+										<option value="COD" style="font-family: sans-serif; color: #505C3C; font-size: 18px">Cash On Delivery</option>
+										<option value="ONLINE" style="font-family: sans-serif; color: #505C3C; font-size: 18px">Online Payment</option>
 									</select>
 
 								</div>
 
-								<button class="btn bg-primary text-white col-md-12">Place
+								<button class="btn text-white fw-bold col-md-12" style="background-color: #339933; font-size: 20px">Place
 									Order</button>
 
 							</div>
