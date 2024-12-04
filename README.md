@@ -1,11 +1,17 @@
-🌐 XÂY DỰNG WEBSITE KINH DOANH THỜI TRANG NAM 👕
-Dự án này được xây dựng bởi Nguyễn Trọng Nghĩa
+# 🌐 **XÂY DỰNG WEBSITE KINH DOANH THỜI TRANG NAM 👕**
+
+**Dự án này được xây dựng bởi Nguyễn Trọng Nghĩa**
+
+
 
 <img src="/src/main/resources/static/img/background.png" alt="Ảnh mô tả">
 <img src="/src/main/resources/static/img/nice.png" alt="Ảnh mô tả">
 
+
+
 Dự án này được xây dựng bởi Nguyễn Trọng Nghĩa
 https://github.com/TrongNghiakt
+
 
 
 🚀 Mô Tả Dự Án
@@ -22,11 +28,14 @@ Dự án này nhằm xây dựng một website bán hàng trực tuyến cho cá
 
 
 
+
 💻 Các Công Nghệ Sử Dụng
 - Frontend: HTML, CSS, JavaScript, BootStrap 3, 4, 5, Thymeleaf
 - Backend: Java (Spring Boot), Spring Security, Spring Data JPA
 - Database: MySQL
 - Version Control: Git, GitHub
+
+
 
 
 🧑‍💻 Cấu Trúc Thư Mục Dự Án
@@ -63,6 +72,7 @@ Shopping_Cart_Clothes/
 
 
 
+
 📦 Cài Đặt Dự Án
 Cài Đặt Môi Trường Phát Triển 💻:
 - Java JDK 17: Cài đặt từ Amazon Corretto.
@@ -71,9 +81,11 @@ Cài Đặt Môi Trường Phát Triển 💻:
 - IDE: Sử dụng IntelliJ IDEA hoặc Eclipse.
 
 
+
 Clone Dự Án và Cài Đặt Dependencies 📦:
 git clone https://github.com/TrongNghiakt/Shopping_Cart_Clothes
 mvn clean install
+
 
 
 Cấu Hình Cơ Sở Dữ Liệu 💾:
@@ -84,16 +96,20 @@ spring.datasource.username=root
 spring.datasource.password=your_password
 
 
+
 Chạy Ứng Dụng 🚀:
 mvn spring-boot:run
+
 
 
 Truy Cập Website 🌐: Mở trình duyệt và truy cập vào địa chỉ: http://localhost:8080
 
 
 
+
 📝 Đánh Giá và Phản Hồi
 Mình rất mong nhận được phản hồi từ các bạn về các tính năng của website. Hãy chia sẻ suy nghĩ và góp ý của các bạn!
+
 
 
 🙌 Cảm Ơn Bạn!
