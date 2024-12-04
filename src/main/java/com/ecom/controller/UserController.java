@@ -128,6 +128,11 @@ public class UserController {
 	public String orderPage(Principal p, Model m) {
 		UserDtls user = getLoggedInUserDetails(p);
 		List<Cart> carts = cartService.getCartsByUser(user.getId());
+		if (carts.isEmpty()) {
+			m.addAttribute("errorMsg", "You must select at least one product to proceed with payment.");
+			return "redirect:/user/cart";
+		}
+
 		m.addAttribute("carts", carts);
 		if (carts.size() > 0) {
 			Double orderPrice = carts.get(carts.size() - 1).getTotalOrderPrice();

@@ -422,6 +422,13 @@ public class AdminController {
 	@PostMapping("/save-admin")
 	public String saveAdmin(@ModelAttribute UserDtls user, @RequestParam("img") MultipartFile file, HttpSession session)
 			throws IOException {
+
+		Boolean existsEmail = userService.existsEmail(user.getEmail());
+
+		if (existsEmail) {
+			session.setAttribute("errorMsg", "Email already exist!");
+		}
+
 		String imageName = file.isEmpty() ? "default.jpg" : file.getOriginalFilename();
 		user.setProfileImage(imageName);
 		UserDtls saveUser = userService.saveAdmin(user);
