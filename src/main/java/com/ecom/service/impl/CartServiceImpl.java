@@ -15,6 +15,8 @@ import com.ecom.repository.ProductRepository;
 import com.ecom.repository.UserRepository;
 import com.ecom.service.CartService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Service
 public class CartServiceImpl implements CartService {
 
@@ -80,9 +82,12 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public void updateQuantity(String sy, Integer cid) {
+	public void updateQuantity(String sy, Integer cid, HttpSession session) {
 		Cart cart = cartRepository.findById(cid).get();
+		Product product = cart.getProduct();
 		int updateQuantity;
+
+		int stock = product.getStock();
 
 		if (sy.equalsIgnoreCase("de")) {
 			updateQuantity = cart.getQuantity() - 1;
@@ -95,6 +100,12 @@ public class CartServiceImpl implements CartService {
 			}
 		} else {
 			updateQuantity = cart.getQuantity() + 1;
+
+			if (updateQuantity > stock) {
+				session.setAttribute("errorMsg", "Cannot add more than the quantity of products available in stock.");
+				return;
+			}
+
 			cart.setQuantity(updateQuantity);
 			cartRepository.save(cart);
 		}

@@ -3,7 +3,8 @@
 	th:fragment="layout(content)">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>King's Wardrobe</title>
+<link rel="icon" type="image/x-icon" href="/img/favicon3.png">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -16,13 +17,91 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <link rel="stylesheet" href="/css/style.css">
+<style>
+.custom-navbar-bg {
+	background-color: #e0e0d1;
+}
+
+.navbar-brand {
+	padding: 0;
+	font-size: 2rem;
+	font-weight: 400;
+	color: #505C3C;
+	font-family: 'Courier New', Courier, monospace;
+	font-weight: 900;
+}
+
+.navbar-brand:hover {
+	color: #788b5b;
+}
+
+.nav-item {
+	color: #4d4d33;
+}
+
+.nav-link:hover {
+	color: #bf8040;
+}
+
+.navbar-nav .nav-link.active {
+	color: #4d4d33;
+	font-weight: bold;
+	padding-left: 25px;
+}
+
+.navbar-nav .nav-link.active:hover {
+	color: #bf8040;
+}
+
+.nav-link {
+	font-family: sans-serif;
+	color: #4d4d33;
+	font-weight: 500;
+	font-size: 1.4rem;
+	font-weight: 600;
+	padding-left: 25px;
+}
+
+.nav-link-add {
+	font-family: sans-serif;
+	color: #4d4d33;
+	font-weight: 500;
+	font-size: 1.4rem;
+	font-weight: bold;
+	padding-left: 25px;
+}
+
+.navbar-nav .nav-link.show {
+	color: #bf8040;
+}
+</style>
 </head>
-<body>
+<body style="background-color: #fff; display: grid;
+    grid-template-rows: 1fr auto; ">
+		<style>
+.dropdown-item {
+	font-family: sans-serif;
+	color: #505C3C;
+	font-weight: 600;
+	font-size: 18px;
+	border-bottom: solid 1px rgba(0,0,0,0.08);
+}
+
+.dropdown-item.active {
+	background-color: #505C3C !important;
+	color: white !important;
+	border: none;
+}
+
+.dropdown-item:hover {
+	background-color: #e0e0d1;
+}
+</style>
 	<!-- Start Navbar  -->
-	<nav class="navbar navbar-expand-lg  bg-primary fixed-top navbar-dark">
+	<nav
+		class="navbar navbar-expand-lg fixed-top navbar-dark custom-navbar-bg">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#"><i
-				class="fa-solid fa-cart-shopping"></i> Ecom Store</a>
+			<img class="" src="/img/Logo.png" height=" 50px" style="top: 0px;">
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -32,31 +111,32 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<th:block th:if="${user==null}">
-						<li class="nav-item"><a class="nav-link active"
+						<li  class="nav-item"><a class="nav-link active"
 							aria-current="page" href="/"><i class="fa-solid fa-house"></i>
-								Home</a></li>
+								HOME</a></li>
 					</th:block>
 
 					<th:block th:unless="${user==null}">
 						<li class="nav-item" th:if="${user.role=='ROLE_ADMIN'}"><a
 							class="nav-link active" aria-current="page" href="/admin/"><i
-								class="fa-solid fa-house"></i> Home</a></li>
+								class="fa-solid fa-house"></i> HOME</a></li>
 
 						<li class="nav-item" th:if="${user.role=='ROLE_USER'}"><a
 							class="nav-link active" aria-current="page" href="/"><i
-								class="fa-solid fa-house"></i> Home</a></li>
+								class="fa-solid fa-house"></i> HOME</a></li>
 					</th:block>
 
 
 
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="/products">Product</a></li>
+					<li class="nav-item"><a class="nav-link nav-link-add active"
+						aria-current="page" href="/products">PRODUCT</a></li>
 
 					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" role="button"
-						data-bs-toggle="dropdown" aria-expanded="false"> Category </a>
-						<ul class="dropdown-menu">
-							<li th:each="c:${categorys}"><a class="dropdown-item"
+						class="nav-link nav-link-add dropdown-toggle" href="#"
+						role="button" data-bs-toggle="dropdown" aria-expanded="false"
+						style="padding-left: 25px;"> CATEGORY </a>
+						<ul class="dropdown-menu card-sh" style="border: none; padding: 0">
+							<li th:each="c:${categorys}"><a class="dropdown-item"  style="padding: 10px 120px 10px 15px;font: sans-serif; font-weight: 600; color: #4d4d33;"
 								th:href="@{'/products?category='+${c.name}}">[[${c.name}]]</a></li>
 
 						</ul></li>
@@ -115,9 +195,9 @@
 	<div th:replace="${content}"></div>
 
 	<!-- Start Footer -->
-	<div class="container-fluid p-1 bg-primary text-center text-white"
-		style="margin-top: 250px">
-		<p>ecom.com</p>
+	<div class="container-fluid p-1 text-center text-white"
+		style="background-color: #E0E0D1;bottom: 0">
+		<p style=" color: #4d4d33; font-family: monospace; margin-top: 15px;">KING's WARDROBE - Store</p>
 	</div>
 	<!-- End Footer  -->
 

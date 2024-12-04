@@ -14,9 +14,11 @@ import org.springframework.stereotype.Service;
 import com.ecom.model.Cart;
 import com.ecom.model.OrderAddress;
 import com.ecom.model.OrderRequest;
+import com.ecom.model.Product;
 import com.ecom.model.ProductOrder;
 import com.ecom.repository.CartRepository;
 import com.ecom.repository.ProductOrderRepository;
+import com.ecom.repository.ProductRepository;
 import com.ecom.service.OrderService;
 import com.ecom.util.CommonUtil;
 import com.ecom.util.OrderStatus;
@@ -32,6 +34,9 @@ public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	private CommonUtil commonUtil;
+
+	@Autowired
+	private ProductRepository productRepository;
 
 	@Override
 	public void saveOrder(Integer userid, OrderRequest orderRequest) throws Exception {
@@ -65,9 +70,20 @@ public class OrderServiceImpl implements OrderService {
 			order.setOrderAddress(address);
 
 			ProductOrder saveOrder = orderRepository.save(order);
+
+			Product product = cart.getProduct();
+			product.setStock(product.getStock() - cart.getQuantity());
+
+			if (product.getStock() < 0) {
+				product.setIsActive(false);
+			}
+
+			productRepository.save(product);
+
 			commonUtil.sendMailForProductOrder(saveOrder, "success");
 
 		}
+		cartRepository.deleteAll(carts);
 
 	}
 

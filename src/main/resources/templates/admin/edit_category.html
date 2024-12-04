@@ -6,20 +6,25 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<section>
-		<div class="container-fluid p-5 mt-5">
+	<section style="min-height: 92.1vh; background-color: #f6f6ee">
+		<div class="p-5 mt-5">
+		<a href="/admin/category" class="text-decoration-none" style="font-family: sans-serif; color: #505C3C;"><i
+					class="fa-solid fa-arrow-left"></i> Back</a>
 			<div class="row">
 				<div class="col-md-3 offset-md-5">
-					<div class="card card-sh">
-						<div class="card-header text-center">
-							<p class="fs-4">Edit Category</p>
+					<div>
+						<div class="card-header">
+							<p class="fs-3 text-center" 
+							style="font-family: sans-serif; color: #505C3C; font-weight: bold; margin-bottom: 30px;">
+							EDIT CATEGORY</p>
+							
 							<th:block th:if="${session.succMsg}">
-								<p class="text-success fw-bold" style="font-size: 1.8rem; font-weight: 700;">[[${session.succMsg}]]</p>
+								<p class="text-success fw-bold text-center" style="font-size: 1.8rem; font-weight: 700;">[[${session.succMsg}]]</p>
 								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
 							</th:block>
 
 							<th:block th:if="${session.errorMsg}">
-								<p class="text-danger fw-bold" style="font-size: 1.8rem; font-weight: 700;">[[${session.errorMsg}]]</p>
+								<p class="text-danger fw-bold text-center" style="font-size: 1.8rem; font-weight: 700;">[[${session.errorMsg}]]</p>
 								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
 							</th:block>
 						</div>
@@ -28,33 +33,34 @@
 								enctype="multipart/form-data">
 								<input type = "hidden" name = "id" th:value = "${category.id}">
 								<div class="mb-3">
-									<label>Enter Category</label> <input type="text" name="name" th:value ="${category.name}"
+									<label style="color: #505C3C; font-size: 18px; font-family: sans-serif; font-weight: bold;">Enter Category</label> 
+									<input style="color: #505C3C; font-family: sans-serif; font-weight: 500" type="text" name="name" th:value ="${category.name}"
 										class="form-control">
 								</div>
 
 								<div class="mb-3">
-									<label>Status</label>
+									<label style="color: #505C3C; font-size: 18px; font-family: sans-serif; font-weight: bold;">Status</label>
 
 									<div class="form-check">
-										<input class="form-check-input" type="radio"  th:checked = "${category.isActive} ==true"
-											value="true" name="isActive" id="active"> <label
+										<input  style="color: #505C3C; font-family: sans-serif; font-weight: 500" class="form-check-input" type="radio"  th:checked = "${category.isActive} ==true"
+											value="true" name="isActive" id="active"> <label style="font-family: sans-serif; color: #505C3C; font-weight: 500"
 											class="form-check-label" for="flexRadioDefault1">
 											Active </label>
 									</div>
 									<div class="form-check">
 										<input class="form-check-input" type="radio" value="false"  th:checked = "${category.isActive} ==false"
-											name="isActive" id="flexRadioDefault2"> <label
+											name="isActive" id="flexRadioDefault2"> <label style="font-family: sans-serif; color: #505C3C; font-weight: 500"
 											class="form-check-label" for="flexRadioDefault2">
 											Inactive </label>
 									</div>
 								</div>
 
 								<div class="mb-3">
-									<label>Upload Image</label> <input type="file" name="file"
-										class="form-control">
+									<label style="color: #505C3C; font-size: 18px; font-family: sans-serif; font-weight: bold;">Upload Image</label> <input type="file" name="file"
+										class="form-control" style="color: #505C3C; font-family: sans-serif; font-weight: 500">
 								</div>
 								<img th:src="@{'/img/category_img/'+${category.imageName}}" width = "100px" height = "100px">
-								<button class="btn btn-primary col-md-12 mt-2">Update</button>
+								<button class="btn text-white col-md-12 mt-2" style="background-color: #505C3C; font-weight: bold">Update</button>
 							</form>
 						</div>
 					</div>
@@ -63,6 +69,11 @@
 				
 			</div>
 		</div>
+		<style>
+		.form-check-input:checked {
+	background-color: #505C3C !important;
+	border: none;
+}</style>
 	</section>
 </body>
 </html>

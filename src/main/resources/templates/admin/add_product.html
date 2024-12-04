@@ -6,21 +6,23 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<section>
+	<section style="min-height: 92.1vh; background-color: #f6f6ee">
 		<div class="container p-5 mt-3">
 			<div class="row">
-				<div class="col-md-6 offset-md-3">
-					<div class="card card-sh">
+				<div class="col-md-8 offset-md-2">
+					<div style="border: none; margin-top: 40px">
 						<div class="card-header text-center fs-4">
-							<p class="fs-4">Add Product</p>
+							<p class="fs-3" 
+							style="font-family: sans-serif; color: #505C3C; font-weight: bold; margin-top: 20px; margin-bottom: 25px;">
+							ADD PRODUCT</p>
 
 							<th:block th:if="${session.succMsg}">
-								<p class="text-success fw-bold" style="font-size: 1.8rem; font-weight: 700;">[[${session.succMsg}]]</p>
+								<p class="text-success fw-bold text-center" style="font-size: 1.8rem; font-weight: 700;">[[${session.succMsg}]]</p>
 								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
 							</th:block>
 
 							<th:block th:if="${session.errorMsg}">
-								<p class="text-danger fw-bold" style="font-size: 1.8rem; font-weight: 700;">[[${session.errorMsg}]]</p>
+								<p class="text-danger fw-bold text-center" style="font-size: 1.8rem; font-weight: 700;">[[${session.errorMsg}]]</p>
 								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
 							</th:block>
 						</div>
@@ -29,40 +31,43 @@
 						<div class="card-body">
 							<form action = "/admin/saveProduct" method = "post" enctype = "multipart/form-data">
 								<div class="mb-3">
-									<label> Enter Title</label> <input type="text"  name = "title"
-										class="form-control">
+									<label 
+									style="font-family: sans-serif; color: #505C3C; font-size: 19px; font-weight: 500"> Enter Title</label> <input type="text"  name = "title"
+										class="form-control" style="color: #6b6b47;">
 								</div>
 
 								<div class="mb-3">
-									<label> Enter Description</label>
-									<textarea rows="3" cols="" class="form-control" name = "description"></textarea>
+									<label style="font-family: sans-serif; color: #505C3C; font-size: 19px; font-weight: 500"> Enter Description</label>
+									<textarea rows="3" cols="" class="form-control" name = "description" style="color: #6b6b47;"></textarea>
 								</div>
 
 								<div class="mb-3">
-									<label> Category</label> <select class="form-control" name = "category">
-										<option>--select--</option>
-										<option th:each="c:${categories}">[[${c.name}]]</option>
+									<label style="font-family: sans-serif; color: #505C3C; font-size: 19px; font-weight: 500"> Category</label> 
+									<select class="form-control" name = "category" style="color: #6b6b47;">
+										<option style="font-family: sans-serif; color: #505C3C; font-size: 19px; font-weight: 500">--select--</option>
+										<option style="font-family: sans-serif; color: #505C3C; font-size: 19px; font-weight: 500" th:each="c:${categories}">[[${c.name}]]</option>
 									</select>
 								</div>
 
 								<div class="mb-3">
-									<label> Enter Price</label> <input type="number" name="price"
-										class="form-control">
+									<label style="font-family: sans-serif; color: #505C3C; font-size: 19px; font-weight: 500"> Enter Price</label> <input type="number" name="price"
+										class="form-control" style="color: #6b6b47;">
 								</div>
 								
 								<div class="mb-3">
-									<label>Status</label>
+									<label style="font-family: sans-serif; color: #505C3C; font-size: 19px; font-weight: 500">Status</label>
 
 									<div class="form-check">
 										<input class="form-check-input" type="radio" checked
-											value="true" name="isActive" id="active"> <label
+											value="true" name="isActive" id="active"> 
+											<label style="font-family: sans-serif; color: #505C3C; font-weight: 500"
 											class="form-check-label" for="flexRadioDefault1">
 											Active </label>
 									</div>
-									<div class="form-check">
+									<div class="form-check" style="">
 										<input class="form-check-input" type="radio" value="false"
 											name="isActive" id="flexRadioDefault2"> <label
-											class="form-check-label" for="flexRadioDefault2">
+											class="form-check-label" for="flexRadioDefault2" style="font-family: sans-serif; color: #505C3C; font-weight: 500">
 											Inactive </label>
 									</div>
 								</div>
@@ -71,22 +76,29 @@
 								<div class="row">
 
 									<div class="mb-3 col">
-										<label> Enter Stock</label> <input type="text" name="stock"
-											class="form-control">
+										<label style="font-family: sans-serif; color: #505C3C; font-size: 19px; font-weight: 500"> Enter Stock</label> <input type="text" name="stock"
+											class="form-control" style="color: #6b6b47;">
 									</div>
 
 									<div class="mb-3 col">
-										<label> Upload Image</label> <input type="file" name="file"
-											class="form-control">
+										<label style="font-family: sans-serif; color: #505C3C; font-size: 19px; font-weight: 500"> Upload Image</label> <input type="file" name="file"
+											class="form-control" style="color: #6b6b47;">
 									</div>
 								</div>
-								<button class="btn btn-primary col-md-12">Submit</button>
+								<button class="btn btn-primary col-md-12" style="font-family: sans-serif; background-color: #505C3C; font-weight: bold; border: none; font-size: 20px; margin-top: 10px" >Submit</button>
 							</form>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		
+<style>
+.form-check-input:checked {
+    background-color: #505C3C !important; 
+    border: none;
+}
+</style>
 	</section>
 </body>
 </html>

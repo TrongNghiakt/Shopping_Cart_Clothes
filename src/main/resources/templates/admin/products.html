@@ -8,13 +8,17 @@
 </head>
 
 <body>
-	<section>
+	<section  style="min-height: 92.1vh; background-color: #f6f6ee">
 		<div class="container-fluid mt-5 p-3">
-			<div class="row">
-				<p class="text-center fs-3 mt-2">All Products</p>
+		<p class="text-center fs-3" 
+		style="font-family: sans-serif; color: #505C3C; font-weight: bold; margin-top: 30px; margin-bottom: 25px;">ALL PRODUCTS</p>
 				<hr>
-				<a href="/admin/" class="text-decoration-none"><i
+			<div class="row">
+			<div class="col-md-4">
+				
+				<a href="/admin/" class="text-decoration-none" style="font-family: sans-serif; color: #505C3C;"><i
 					class="fa-solid fa-arrow-left"></i> Back</a>
+					</div>
 				<th:block th:if="${session.succMsg}">
 					<p class="text-success fw-bold text-center"
 						style="font-size: 1.8rem; font-weight: 700;">[[${session.succMsg}]]</p>
@@ -29,16 +33,14 @@
 
 
 
-				<div class="col-md-4 p-3">
+				<div class="col-md-4" style="width: 575px;">
 
 					<form action="/admin/products" method="get">
-						<div class="row">
-							<div class="col">
-								<input type="text" class="form-control " name="ch">
-							</div>
-							<div class="col">
-								<button class="btn btn-primary col">Search</button>
-							</div>
+						<div class="input-group">
+							<input type="text" class="form-control p-2" name="ch">
+							<button class="btn" style="background-color: #E0E0D1">
+								<i class="fa-solid fa-magnifying-glass"></i>
+							</button>
 						</div>
 					</form>
 
@@ -46,35 +48,35 @@
 
 
 				<div class="p-3">
-					<table class="table table-bordered">
+					<table class="table">
 						<thead class="table-light">
 							<tr>
-								<th scope="col">Sl No</th>
-								<th scope="col">Image</th>
-								<th scope="col">Title</th>
-								<th scope="col">Category</th>
-								<th scope="col">Price</th>
-								<th scope="col">Discount</th>
-								<th scope="col">Discount Price</th>
-								<th scope="col">Status</th>
-								<th scope="col">Stock</th>
-								<th scope="col">Action</th>
+								<th scope="col" style="color: #505C3C; font-size: 18px; font-family: sans-serif; font-weight: bold;">Sl No</th>
+								<th scope="col" style="color: #505C3C; font-size: 18px; font-family: sans-serif; font-weight: bold;">Image</th>
+								<th scope="col" style="color: #505C3C; font-size: 18px; font-family: sans-serif; font-weight: bold;">Title</th>
+								<th scope="col" style="color: #505C3C; font-size: 18px; font-family: sans-serif; font-weight: bold;">Category</th>
+								<th scope="col" style="color: #505C3C; font-size: 18px; font-family: sans-serif; font-weight: bold;">Price</th>
+								<th scope="col" style="color: #505C3C; font-size: 18px; font-family: sans-serif; font-weight: bold;">Discount</th>
+								<th scope="col" style="color: #505C3C; font-size: 18px; font-family: sans-serif; font-weight: bold;">Discount Price</th>
+								<th scope="col" style="color: #505C3C; font-size: 18px; font-family: sans-serif; font-weight: bold;">Status</th>
+								<th scope="col" style="color: #505C3C; font-size: 18px; font-family: sans-serif; font-weight: bold;">Stock</th>
+								<th scope="col" style="color: #505C3C; font-size: 18px; font-family: sans-serif; font-weight: bold;">Action</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr th:each="p, c : ${products}">
-								<th scope="row">[[${c.count}]]</th>
+								<th scope="row" style="color: #505C3C; font-family: sans-serif;">[[${c.count}]]</th>
 								<td><img th:src="@{'/img/product_img/'+${p.image}}"
-									width="70px" height="70px"></td>
-								<td>[[${p.title}]]</td>
-								<td>[[${p.category}]]</td>
-								<td>[[${p.price}]]</td>
-								<td>[[${p.discount}]]</td>
-								<td>[[${p.discountPrice}]]</td>
-								<td>[[${p.isActive}]]</td>
-								<td>[[${p.stock}]]</td>
+									width="40px" height="50px" style="object-fit: cover;"></td>
+								<td style="color: #505C3C; font-family: sans-serif; font-weight: 500">[[${p.title}]]</td>
+								<td style="color: #505C3C; font-family: sans-serif; font-weight: 500">[[${p.category}]]</td>
+								<td style="color: #505C3C; font-family: sans-serif; font-weight: 500">[[${p.price}]]</td>
+								<td style="color: #505C3C; font-family: sans-serif; font-weight: 500">[[${p.discount}]]</td>
+								<td style="color: #505C3C; font-family: sans-serif; font-weight: 500">[[${p.discountPrice}]]</td>
+								<td style="color: #505C3C; font-family: sans-serif; font-weight: 500">[[${p.isActive}]]</td>
+								<td style="color: #505C3C; font-family: sans-serif; font-weight: 500">[[${p.stock}]]</td>
 								<td><a th:href="@{'/admin/editProduct/'+${p.id}}"
-									class="btn btn-sm btn-primary"> <i
+									class="btn btn-sm" style="background-color: #008fb3; color: white; border: none"> <i
 										class="fa-solid fa-pen-to-square"></i> Edit
 								</a> <a th:href="@{'/admin/deleteProduct/'+${p.id}}"
 									class="btn btn-sm btn-danger"> <i class="fa-solid fa-trash"></i>
@@ -86,11 +88,11 @@
 				</div>
 
 				<div class="row">
-					<div class="col-md-4">Total Product : [[${totalElements}]]</div>
+					<div class="col-md-4" style="color: #505C3C; font-family: sans-serif;">Total Product : [[${totalElements}]]</div>
 					<div class="col-md-6">
 
 						<nav aria-label="Page navigation example">
-							<ul class="pagination">
+							<ul class="pagination" style="margin-left: 230px;">
 								<li class="page-item"><a class="page-link"
 									th:classappend="${isFirst} ? 'disabled':''"
 									th:href="@{'/admin/products?pageNo='+${pageNo-1}}"
@@ -98,7 +100,7 @@
 								</a></li>
 								<li th:each="i:${#numbers.sequence(1,totalPages)}"
 									class="page-item" th:classappend="${pageNo+1==i}?'active':''"><a
-									class="page-link" th:href="@{'/admin/products?pageNo='+${i-1}}">[[${i}]]</a></li>
+									class="page-link" th:href="@{'/admin/products?pageNo='+${i-1}}" >[[${i}]]</a></li>
 
 								<li class="page-item"><a class="page-link"
 									th:classappend="${isLast} ? 'disabled':''"
@@ -113,7 +115,26 @@
 
 			</div>
 		</div>
+<style>
+.page-link {
+	font-family: sans-serif;
+	color: #505C3C;
+	font-weight: 600;
+	font-size: 18px;
+	border-bottom: solid 1px rgba(0,0,0,0.08);
+}
 
+.active>.page-link, .page-link.active {
+	background-color: #505C3C !important;
+	color: white !important;	
+	border: none;
+}
+
+.page-link:hover {
+	background-color: #e0e0d1;
+	color: #505C3C;
+	}
+</style>
 	</section>
 </body>
 

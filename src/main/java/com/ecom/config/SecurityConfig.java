@@ -23,6 +23,9 @@ public class SecurityConfig {
 	@Lazy
 	private AuthenticationFailureHandler authenticationFailureHandler;
 
+	@Autowired
+	private UserDetailsService userDetailsService;
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();

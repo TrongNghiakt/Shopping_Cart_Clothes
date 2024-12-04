@@ -8,8 +8,7 @@ $(function() {
 			name: {
 				required: true,
 
-			}
-			,
+			},
 			email: {
 				required: true,
 				space: true,
@@ -129,11 +128,11 @@ $(function() {
 		rules: {
 			firstName: {
 				required: true,
-				
+
 			},
 			lastName: {
 				required: true,
-				
+
 			}
 			,
 			email: {
@@ -182,7 +181,7 @@ $(function() {
 			},
 			lastName: {
 				required: 'Last name required',
-			
+
 			},
 			email: {
 				required: 'Email name must be required',
@@ -238,7 +237,7 @@ $(function() {
 			confirmPassword: {
 				required: true,
 				space: true,
-				equalTo: '#pass'
+				equalTo: '#password'
 
 			}
 		},
@@ -248,7 +247,7 @@ $(function() {
 				space: 'Space not allowed'
 
 			},
-			confirmpassword: {
+			confirmPassword: {
 				required: 'Confirm password must be required',
 				space: 'Space not allowed',
 				equalTo: 'Password mismatch'
@@ -256,22 +255,24 @@ $(function() {
 			}
 		}
 	})
+
+
+
 })
 
-
 jQuery.validator.addMethod('lettersonly', function(value, element) {
-	return /^[^-\s][a-zA-Z_\s-]+$/.test(value);
-});
+		return /^[^-\s][a-zA-Z_\s-]+$/.test(value);
+	});
+	
+		jQuery.validator.addMethod('space', function(value, element) {
+		return /^[^-\s]+$/.test(value);
+	});
 
-jQuery.validator.addMethod('space', function(value, element) {
-	return /^[^-\s]+$/.test(value);
-});
-
-jQuery.validator.addMethod('all', function(value, element) {
-	return /^[^-\s][a-zA-Z0-9_,.\s-]+$/.test(value);
-});
+	jQuery.validator.addMethod('all', function(value, element) {
+		return /^[^-\s][a-zA-Z0-9_,.\s-]+$/.test(value);
+	});
 
 
-jQuery.validator.addMethod('numericOnly', function(value, element) {
-	return /^[0-9]+$/.test(value);
-});
+	jQuery.validator.addMethod('numericOnly', function(value, element) {
+		return /^[0-9]+$/.test(value);
+	});

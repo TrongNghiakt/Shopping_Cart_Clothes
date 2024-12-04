@@ -3,23 +3,23 @@
 
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Insert title here</title>
+	<title>Home</title>
 </head>
 
-<body>
+<body style="position: relative;">
 	<section>
 
 		<!--Start Slider-->
 		<div id="carouselExample" class="carousel slide" style="margin-top: 64px;">
 			<div class="carousel-inner">
 				<div class="carousel-item active">
-					<img src="img/Slide/slide3.jpeg" class="d-block w-100" alt="..." height="300px">
+					<img src="img/Slide/slide1.jpeg" class="d-block w-100" alt="..." height="300px">
 				</div>
 				<div class="carousel-item">
 					<img src="img/Slide/slide2.jpeg" class="d-block w-100" alt="..." height="300px">
 				</div>
 				<div class="carousel-item">
-					<img src="img/Slide/slide1.jpeg" class="d-block w-100" alt="..." height="300px">
+					<img src="img/Slide/slide3.jpeg" class="d-block w-100" alt="..." height="300px">
 				</div>
 				<div class="carousel-item">
 					<img src="img/Slide/slide4.jpeg" class="d-block w-100" alt="..." height="300px">
@@ -39,69 +39,15 @@
 		<!--< Start Category Module -->
 		<div class="container">
 			<div class="row">
-				<p class="text-center fs-4">Category</p>
+				<p class="text-center fs-2" style="font-family: sans-serif; color: #505C3C; font-weight: bold; margin-top: 30px">CATEGORY</p>
 				<div class="col-md-2" th:each="c:${category}">
 					<div
-						class="card rounded-circle shadow-sm p-3 mb-5 bg-body-tertiary rounded ">
+						class="card-sh p-3 mb-5 mt-2 " style="background-color: #f5f5ef; ">
 						<div class="card-body text-center">
-							<img th:src="@{'img/category_img/'+${c.imageName}}" width="80%" height="300px"><br>
-							<a th:href="@{'/products?category='+${c.name}}" class="text-decoration-none">[[${c.name}]]</a>
+							<a th:href="@{'/products?category='+${c.name}}" class="text-decoration-none" style="font-family: sans-serif; color: #505C3C; font-weight: bold; font-size: 20px;">[[${c.name}]]</a>
 						</div>
 					</div>
 				</div>
-
-				<!-- <div class="col-md-2">
-					<div
-						class="card rounded-circle shadow-sm p-3 mb-5 bg-body-tertiary rounded ">
-						<div class="card-body text-center">
-							<img src="img/category_img/beuty.png" width="65%" height="140px">
-							<p>Beauty</p>
-						</div>
-					</div>
-				</div> -->
-
-
-				<!-- <div class="col-md-2">
-					<div
-						class="card rounded-circle shadow-sm p-3 mb-5 bg-body-tertiary rounded ">
-						<div class="card-body text-center">
-							<img src="img/category_img/pant.png" width="65%" height="140px">
-							<p>Clothes</p>
-						</div>
-					</div>
-				</div>
- -->
-				<!-- <div class="col-md-2">
-					<div
-						class="card rounded-circle shadow-sm p-3 mb-5 bg-body-tertiary rounded ">
-						<div class="card-body text-center">
-							<img src="img/category_img/laptop.jpg" width="65%" height="140px">
-							<p>Laptop</p>
-						</div>
-					</div>
-				</div> -->
-
-
-			<!-- 	<div class="col-md-2">
-					<div
-						class="card rounded-circle shadow-sm p-3 mb-5 bg-body-tertiary rounded ">
-						<div class="card-body text-center">
-							<img src="img/category_img/mobile.png" width="65%" height="140px">
-							<p>Mobile</p>
-						</div>
-					</div>
-				</div> -->
-
-				<!-- <div class="col-md-2">
-					<div
-						class="card rounded-circle shadow-sm p-3 mb-5 bg-body-tertiary rounded ">
-						<div class="card-body text-center">
-							<img src="img/category_img/groccery.jpg" width="65%"
-								height="140px">
-							<p>Grocery</p>
-						</div>
-					</div>
-				</div> -->
 
 
 			</div>
@@ -111,50 +57,18 @@
 
 		<!-- Start Latest Product Module -->
 
-		<div class="container-fluid bg-light p-3">
+		<div class="p-3" style="background-color: #f5f5ef;">
 			<div class="row">
-				<p class="text-center fs-4">Latest Product</p>
+				<p class="text-center fs-2" style="font-family: sans-serif; color: #505C3C; font-weight: bold; margin-top: 15px"><i class="fa-solid fa-fire" style = "color:red"></i> HOT PRODUCT <i class="fa-solid fa-fire" style = "color:red"></i></p>
 
-				<div class="col-md-3" th:each="p:${products}">
-					<div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+				<div class="col-md-3" th:each="p:${bestSellingProducts}" style="margin-top: 15px">
+					<div class="card-sh mb-5 rounded" style="background-color: #f5f5ef; ">
 						<div class="card-body text-center">
-							<img alt="" th:src="@{'img/product_img/'+${p.image}}" class="" width="80%"
-								height="300px">
-							<p class="text-center"><a th:href="@{'/product/'+${p.id}}" class="text-decoration-none">[[${p.title}]]</a></p>
+							<img alt="" th:src="@{'img/product_img/'+${p.product.image}}" class="" width="100%">
+							<p class="text-center" style="margin-top: 15px; padding-bottom: 15px"><a th:href="@{'/product/'+${p.id}}" class="text-decoration-none"  style="padding-left: 25px;font-family: sans-serif; color: #505C3C; font-weight: bold; font-size: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 90%; display: block; word-wrap: break-word; ">[[${p.product.title}]]</a></p>
 						</div>
 					</div>
 				</div>
-
-
-			<!-- 	<div class="col-md-3">
-					<div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-						<div class="card-body text-center">
-							<img alt="" src="img/product_img/laptop.jpg" class="" width="65%"
-								height="140px">
-							<p class="text-center">HP Laptop</p>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-3">
-					<div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-						<div class="card-body text-center">
-							<img alt="" src="img/product_img/laptop.jpg" class="" width="65%"
-								height="140px">
-							<p class="text-center">HP Laptop</p>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-3">
-					<div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-						<div class="card-body text-center">
-							<img alt="" src="img/product_img/laptop.jpg" class="" width="65%"
-								height="140px">
-							<p class="text-center">HP Laptop</p>
-						</div>
-					</div>
-				</div> -->
 
 			</div>
 		</div>

@@ -53,15 +53,17 @@ public class CommonUtil {
 	String msg = null;
 
 	public Boolean sendMailForProductOrder(ProductOrder order, String status) throws Exception {
+		double totalPrice = order.getPrice() * order.getQuantity();
+
 		msg = "<p>Hello [[name]],</p>" + "<p>Thank you order <b>[[orderStatus]]</b>.</p>"
 				+ "<p><b>Product Details:</b></p>" + "<p>Name : [[productName]]</p>" + "<p>Category : [[category]]</p>"
-				+ "<p>Quantity : [[quantity]]</p>" + "<p>Price : [[price]]</p>"
+				+ "<p>Quantity : [[quantity]]</p>" + "<p>TotalPrice : [[totalPrice]]</p>"
 				+ "<p>Payment Type : [[paymentType]]</p>";
 
 		MimeMessage message = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message);
 
-		helper.setFrom("daspabitra55@gmail.com", "Shooping Cart");
+		helper.setFrom("nghia7hktvn@gmail.com", "Shooping Cart");
 		helper.setTo(order.getOrderAddress().getEmail());
 
 		msg = msg.replace("[[name]]", order.getOrderAddress().getFirstName());
@@ -69,7 +71,7 @@ public class CommonUtil {
 		msg = msg.replace("[[productName]]", order.getProduct().getTitle());
 		msg = msg.replace("[[category]]", order.getProduct().getCategory());
 		msg = msg.replace("[[quantity]]", order.getQuantity().toString());
-		msg = msg.replace("[[price]]", order.getPrice().toString());
+		msg = msg.replace("[[totalPrice]]", String.format("%.2f", totalPrice));
 		msg = msg.replace("[[paymentType]]", order.getPaymentType());
 
 		helper.setSubject("Product Order Status");
@@ -84,4 +86,5 @@ public class CommonUtil {
 
 		return userDtls;
 	}
+
 }

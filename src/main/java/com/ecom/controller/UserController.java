@@ -78,27 +78,39 @@ public class UserController {
 		if (ObjectUtils.isEmpty(saveCart)) {
 			session.setAttribute("errorMsg", "Product add to cart failed!");
 		} else {
-			session.setAttribute("errorMsg", "Product added to cart!");
+			session.setAttribute("succMsg", "Product added to cart!");
 		}
 
 		return "redirect:/product/" + pid;
 	}
 
 	@GetMapping("/cart")
-	public String loadCartPage(Principal p, Model m) {
+	public String loadCartPage(Principal p, Model m, HttpSession session) {
 		UserDtls user = getLoggedInUserDetails(p);
 		List<Cart> carts = cartService.getCartsByUser(user.getId());
 		m.addAttribute("carts", carts);
-		if (carts.size() > 0) {
-			Double totalOrderPrice = carts.get(carts.size() - 1).getTotalOrderPrice();
-			m.addAttribute("totalOrderPrice", totalOrderPrice);
+
+		if (!carts.isEmpty()) {
+
+			Double totalOrderPrice = carts.stream().mapToDouble(cart -> cart.getTotalPrice()).sum();
+
+			String formattedTotalPrice = String.format("%.2f", totalOrderPrice);
+			m.addAttribute("totalOrderPrice", formattedTotalPrice);
+		} else {
+			session.setAttribute("errorMsg", "Your shopping cart is empty. Please add more products.");
 		}
+
 		return "/user/cart";
 	}
 
 	@GetMapping("/cartQuantityUpdate")
-	public String updateCartQuantity(@RequestParam String sy, @RequestParam Integer cid) {
-		cartService.updateQuantity(sy, cid);
+	public String updateCartQuantity(@RequestParam String sy, @RequestParam Integer cid, HttpSession session) {
+		cartService.updateQuantity(sy, cid, session);
+
+		String errorMsg = (String) session.getAttribute("errorMsg");
+		if (errorMsg != null) {
+			return "redirect:/user/cart";
+		}
 
 		return "redirect:/user/cart";
 	}
@@ -119,7 +131,7 @@ public class UserController {
 		m.addAttribute("carts", carts);
 		if (carts.size() > 0) {
 			Double orderPrice = carts.get(carts.size() - 1).getTotalOrderPrice();
-			Double totalOrderPrice = carts.get(carts.size() - 1).getTotalOrderPrice() + 250 + 100;
+			Double totalOrderPrice = carts.get(carts.size() - 1).getTotalOrderPrice() + 5 + 10;
 			m.addAttribute("orderPrice", orderPrice);
 			m.addAttribute("totalOrderPrice", totalOrderPrice);
 		}
@@ -197,8 +209,12 @@ public class UserController {
 	}
 
 	@PostMapping("/change-password")
-	public String changePassword(@RequestParam String newPassword, @RequestParam String currentPassword, Principal p,
-			HttpSession session) {
+	public String changePassword(@RequestParam String newPassword, @RequestParam String confirmPassword,
+			@RequestParam String currentPassword, Principal p, HttpSession session) {
+		if (!newPassword.equals(confirmPassword)) {
+			session.setAttribute("errorMsg", "New Password and Confirm Password do not match!");
+			return "redirect:/user/profile";
+		}
 
 		UserDtls loggedInUserDetails = getLoggedInUserDetails(p);
 		boolean matches = passwordEncoder.matches(currentPassword, loggedInUserDetails.getPassword());

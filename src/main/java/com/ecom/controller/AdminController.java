@@ -96,8 +96,7 @@ public class AdminController {
 
 		Page<Category> page = categoryService.getAllCategoryPagination(pageNo, pageSize);
 		List<Category> categorys = page.getContent();
-		m.addAttribute("products", categorys);
-		m.addAttribute("productsSize", categorys.size());
+		m.addAttribute("categorys", categorys);
 
 		m.addAttribute("pageNo", page.getNumber());
 		m.addAttribute("pageSize", pageSize);
@@ -113,6 +112,7 @@ public class AdminController {
 	public String saveCategory(@ModelAttribute Category category, @RequestParam("file") MultipartFile file,
 			HttpSession session) throws IOException {
 		String imageName = file != null ? file.getOriginalFilename() : "default.jpg";
+
 		category.setImageName(imageName);
 
 		Boolean existCategory = categoryService.existCategory(category.getName());
@@ -123,6 +123,7 @@ public class AdminController {
 			if (ObjectUtils.isEmpty(saveCategory)) {
 				session.setAttribute("errorMsg", "Not saved ! internal server error!");
 			} else {
+
 				File saveFile = new ClassPathResource("static/img").getFile();
 
 				Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "category_img" + File.separator
@@ -163,6 +164,8 @@ public class AdminController {
 		Category Oldcategory = categoryService.getCategoryById(category.getId());
 		String imageName = file.isEmpty() ? Oldcategory.getImageName() : file.getOriginalFilename();
 
+		category.setImageName(imageName);
+
 		if (!ObjectUtils.isEmpty(category)) {
 			Oldcategory.setName(category.getName());
 			Oldcategory.setIsActive(category.getIsActive());
@@ -173,6 +176,7 @@ public class AdminController {
 
 		if (!ObjectUtils.isEmpty(updateCategory)) {
 			if (!file.isEmpty()) {
+
 				File saveFile = new ClassPathResource("static/img").getFile();
 
 				Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "category_img" + File.separator
@@ -180,6 +184,7 @@ public class AdminController {
 
 				// System.out.println(path);
 				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+
 			}
 			session.setAttribute("succMsg", "Category update success!");
 
@@ -195,6 +200,7 @@ public class AdminController {
 			HttpSession session) throws IOException {
 
 		String imageName = image.isEmpty() ? "default.jpg" : image.getOriginalFilename();
+
 		product.setImage(imageName);
 		product.setDiscount(0);
 		product.setDiscountPrice(product.getPrice());
@@ -202,6 +208,7 @@ public class AdminController {
 		Product saveProduct = productService.saveProduct(product);
 
 		if (!ObjectUtils.isEmpty(saveProduct)) {
+
 			File saveFile = new ClassPathResource("static/img").getFile();
 
 			Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "product_img" + File.separator
@@ -421,6 +428,7 @@ public class AdminController {
 
 		if (!ObjectUtils.isEmpty(saveUser)) {
 			if (!file.isEmpty()) {
+
 				File saveFile = new ClassPathResource("static/img").getFile();
 
 				Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "profile_img" + File.separator
@@ -457,8 +465,13 @@ public class AdminController {
 	}
 
 	@PostMapping("/change-password")
-	public String changePassword(@RequestParam String newPassword, @RequestParam String currentPassword, Principal p,
-			HttpSession session) {
+	public String changePassword(@RequestParam String newPassword, @RequestParam String confirmPassword,
+			@RequestParam String currentPassword, Principal p, HttpSession session) {
+
+		if (!newPassword.equals(confirmPassword)) {
+			session.setAttribute("errorMsg", "New Password and Confirm Password do not match!");
+			return "redirect:/admin/profile";
+		}
 
 		UserDtls loggedInUserDetails = commonUtil.getLoggedInUserDetails(p);
 		boolean matches = passwordEncoder.matches(currentPassword, loggedInUserDetails.getPassword());
