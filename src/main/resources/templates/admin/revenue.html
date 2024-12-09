@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revenue Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<section style="min-height: 92.1vh; background-color: #f6f6ee">
+    <div class="container mt-5">
+    <a href="/admin/" class="text-decoration-none" style="font-family: sans-serif; color: #505C3C;"><i
+					class="fa-solid fa-arrow-left"></i> Back</a>
+        <h1 class="text-center mb-4">Revenue Management</h1>
+
+        <!-- Tổng doanh thu -->
+        <div class="mb-4">
+            <h2>Total Revenue</h2>
+            <p>Total Revenue: <span th:text="${totalRevenue != null ? totalRevenue : 'No data available'}">0.0</span></p>
+        </div>
+
+        <!-- Doanh thu theo ngày -->
+        <div class="mb-4">
+            <h2>Daily Revenue</h2>
+            <form action="/admin/revenue/daily" method="get" class="row">
+                <div class="col-md-4">
+                    <label for="date" class="form-label">Select Date:</label>
+                    <input type="date" id="date" name="date" class="form-control" required>
+                </div>
+                <div class="col-md-4 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary">Get Revenue</button>
+                </div>
+            </form>
+            <p>Revenue for <span th:text="${date != null ? date : 'No date selected'}">Selected Date</span>: <span th:text="${dailyRevenue != null ? dailyRevenue : 'No data available'}">0.0</span></p>
+        </div>
+
+        <!-- Doanh thu theo phạm vi ngày -->
+        <div class="mb-4">
+            <h2>Revenue by Date Range</h2>
+            <form action="/admin/revenue/range" method="get" class="row">
+                <div class="col-md-4">
+                    <label for="startDate" class="form-label">Start Date:</label>
+                    <input type="date" id="startDate" name="startDate" class="form-control" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="endDate" class="form-label">End Date:</label>
+                    <input type="date" id="endDate" name="endDate" class="form-control" required>
+                </div>
+                <div class="col-md-4 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary">Get Revenue</button>
+                </div>
+            </form>
+            <p>Revenue from <span th:text="${startDate != null ? startDate : 'No start date selected'}">Start Date</span> to <span th:text="${endDate != null ? endDate : 'No end date selected'}">End Date</span>: <span th:text="${revenueByDateRange != null ? revenueByDateRange : 'No data available'}">0.0</span></p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    </section>
+</body>
+</html>
