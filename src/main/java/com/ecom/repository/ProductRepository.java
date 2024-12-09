@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.ecom.model.Product;
 
@@ -25,5 +26,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
 	Page<Product> findByisActiveTrueAndTitleContainingIgnoreCaseOrCategoryContainingIgnoreCase(String ch, String ch2,
 			Pageable pageable);
+
+	@Query("SELECT p FROM Product p JOIN ProductOrder o ON p.id = o.product.id WHERE p.isActive = true GROUP BY p ORDER BY SUM(o.quantity) DESC")
+	List<Product> findTopSellingProducts(Pageable pageable);
 
 }

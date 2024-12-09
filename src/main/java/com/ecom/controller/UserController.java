@@ -1,6 +1,7 @@
 package com.ecom.controller;
 
 import java.security.Principal;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -179,7 +180,7 @@ public class UserController {
 
 		ProductOrder updateOrder = orderService.updateOrderStatus(id, status);
 		try {
-			commonUtil.sendMailForProductOrder(updateOrder, status);
+			commonUtil.sendMailForProductOrder(Collections.singletonList(updateOrder), status);
 		} catch (Exception e) {
 
 			e.printStackTrace();
