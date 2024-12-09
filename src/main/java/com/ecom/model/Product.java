@@ -40,4 +40,6 @@ public class Product {
 
 	private Boolean isActive;
 
+	private int soldQuantity;
+
 }

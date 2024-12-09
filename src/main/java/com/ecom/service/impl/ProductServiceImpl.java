@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -161,26 +161,54 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductOrder> getBestSellingProducts(int limit) {
-		Pageable pageable = PageRequest.of(0, limit, Sort.by(Sort.Order.desc("quantity")));
-		Page<ProductOrder> productPage = orderRepository.findAll(pageable);
-		return productPage.getContent();
-	}
-
-	@Override
 	public void placeOrder(Integer productId, Integer quantity, String orderId, UserDtls user,
 			OrderAddress orderAddress, String paymentType) {
 		Product product = productRepository.findById(productId).orElse(null);
 
-		if (product.getStock() >= quantity) {
-			product.setStock(product.getStock() - quantity);
+		if (product != null) {
+			if (product.getStock() >= quantity) {
+				// Giảm số lượng trong kho
+				product.setStock(product.getStock() - quantity);
 
-			if (product.getStock() < 0) {
-				product.setIsActive(false);
+				// Cập nhật số lượng đã bán (soldQuantity)
+				product.setSoldQuantity(product.getSoldQuantity() + quantity);
+
+				// Nếu số lượng trong kho còn dưới 0, set sản phẩm không còn hoạt động
+				if (product.getStock() <= 0) {
+					product.setIsActive(false);
+				}
+
+				// Lưu lại sản phẩm đã cập nhật
+				productRepository.save(product);
+
+				// Tạo đơn hàng (ProductOrder)
+				ProductOrder productOrder = new ProductOrder();
+				productOrder.setOrderId(orderId);
+				productOrder.setOrderDate(LocalDate.now());
+				productOrder.setProduct(product);
+				productOrder.setQuantity(quantity);
+				productOrder.setPrice(product.getPrice());
+				productOrder.setUser(user);
+				productOrder.setStatus("In Progress");
+				productOrder.setPaymentType(paymentType);
+				productOrder.setOrderAddress(orderAddress);
+
+				orderRepository.save(productOrder);
 			}
+		}
+	}
 
+	public List<Product> getBestSellingProducts(int limit) {
+		Pageable pageable = PageRequest.of(0, limit); // Chỉ lấy 8 sản phẩm
+		return productRepository.findTopSellingProducts(pageable);
+	}
+
+	@Override
+	public void updateSoldQuantity(ProductOrder productOrder) {
+		Product product = productOrder.getProduct();
+		if (product != null) {
+			product.setSoldQuantity(product.getSoldQuantity() + productOrder.getQuantity());
 			productRepository.save(product);
-
 		}
 
 	}

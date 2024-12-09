@@ -14,4 +14,7 @@ public interface ProductOrderRepository extends JpaRepository<ProductOrder, Inte
 	ProductOrder findByOrderId(String orderId);
 
 	Page<ProductOrder> findAll(Pageable pageable);
+
+	List<ProductOrder> findByProductId(Integer id);
+
 }

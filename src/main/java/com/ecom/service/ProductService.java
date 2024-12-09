@@ -35,8 +35,11 @@ public interface ProductService {
 
 	public Page<Product> searchActiveProductPagination(Integer pageNo, Integer pageSize, String category, String ch);
 
-	public List<ProductOrder> getBestSellingProducts(int limit);
+	public List<Product> getBestSellingProducts(int limit);
+
+	public void updateSoldQuantity(ProductOrder productOrder);
 
 	public void placeOrder(Integer productId, Integer quantity, String orderId, UserDtls user,
 			OrderAddress orderAddress, String paymentType);
+
 }

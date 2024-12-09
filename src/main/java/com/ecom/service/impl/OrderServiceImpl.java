@@ -1,6 +1,7 @@
 package com.ecom.service.impl;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -40,23 +41,25 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public void saveOrder(Integer userid, OrderRequest orderRequest) throws Exception {
+		// Lấy danh sách giỏ hàng của người dùng
 		List<Cart> carts = cartRepository.findByUserId(userid);
+
+		// Danh sách lưu trữ tất cả đơn hàng (ProductOrder) để gửi email sau
+		List<ProductOrder> productOrders = new ArrayList<>();
 
 		for (Cart cart : carts) {
 			ProductOrder order = new ProductOrder();
 
 			order.setOrderId(UUID.randomUUID().toString());
 			order.setOrderDate(LocalDate.now());
-
 			order.setProduct(cart.getProduct());
 			order.setPrice(cart.getProduct().getDiscountPrice());
-
 			order.setQuantity(cart.getQuantity());
 			order.setUser(cart.getUser());
-
 			order.setStatus(OrderStatus.IN_PROGRESS.getName());
 			order.setPaymentType(orderRequest.getPaymentType());
 
+			// Thiết lập thông tin địa chỉ giao hàng
 			OrderAddress address = new OrderAddress();
 			address.setFirstName(orderRequest.getFirstName());
 			address.setLastName(orderRequest.getLastName());
@@ -69,22 +72,29 @@ public class OrderServiceImpl implements OrderService {
 
 			order.setOrderAddress(address);
 
+			// Lưu đơn hàng
 			ProductOrder saveOrder = orderRepository.save(order);
+			productOrders.add(saveOrder); // Thêm vào danh sách để gửi email sau
 
+			// Cập nhật tồn kho sản phẩm và trạng thái
 			Product product = cart.getProduct();
 			product.setStock(product.getStock() - cart.getQuantity());
 
+			// Nếu tồn kho không đủ, đánh dấu sản phẩm là không còn hoạt động
 			if (product.getStock() < 0) {
 				product.setIsActive(false);
 			}
 
 			productRepository.save(product);
-
-			commonUtil.sendMailForProductOrder(saveOrder, "success");
-
 		}
-		cartRepository.deleteAll(carts);
 
+		// Gửi email sau khi lưu tất cả các đơn hàng
+		if (!productOrders.isEmpty()) {
+			commonUtil.sendMailForProductOrder(productOrders, "success"); // Gửi email cho tất cả các đơn hàng
+		}
+
+		// Xóa tất cả các sản phẩm trong giỏ hàng
+		cartRepository.deleteAll(carts);
 	}
 
 	@Override

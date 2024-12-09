@@ -27,7 +27,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ecom.model.Category;
 import com.ecom.model.Product;
-import com.ecom.model.ProductOrder;
 import com.ecom.model.UserDtls;
 import com.ecom.service.CartService;
 import com.ecom.service.CategoryService;
@@ -79,7 +78,9 @@ public class HomeController {
 	public String index(Model m) {
 		List<Category> allActiveCategory = categoryService.getAllActiveCategory().stream()
 				.sorted((c1, c2) -> c2.getId().compareTo(c1.getId())).limit(8).toList();
-		List<ProductOrder> bestSellingProducts = productService.getBestSellingProducts(12);
+
+		List<Product> bestSellingProducts = productService.getBestSellingProducts(8);
+
 		m.addAttribute("category", allActiveCategory);
 		m.addAttribute("bestSellingProducts", bestSellingProducts);
 

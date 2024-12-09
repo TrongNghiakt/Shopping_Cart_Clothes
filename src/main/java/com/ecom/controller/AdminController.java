@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ import com.ecom.model.Category;
 import com.ecom.model.Product;
 import com.ecom.model.ProductOrder;
 import com.ecom.model.UserDtls;
+import com.ecom.repository.ProductOrderRepository;
+import com.ecom.repository.ProductRepository;
+import com.ecom.repository.UserRepository;
 import com.ecom.service.CartService;
 import com.ecom.service.CategoryService;
 import com.ecom.service.OrderService;
@@ -55,6 +59,9 @@ public class AdminController {
 	private CartService cartService;
 
 	@Autowired
+	private UserRepository userRepository;
+
+	@Autowired
 	private OrderService orderService;
 
 	@Autowired
@@ -62,6 +69,12 @@ public class AdminController {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+
+	@Autowired
+	private ProductOrderRepository orderRepository;
+
+	@Autowired
+	private ProductRepository productRepository;
 
 	@GetMapping("/")
 	public String index() {
@@ -259,15 +272,27 @@ public class AdminController {
 
 	@GetMapping("/deleteProduct/{id}")
 	public String deleteProduct(@PathVariable int id, HttpSession session) {
-		Boolean deleteProduct = productService.deleteProduct(id);
-		if (deleteProduct) {
-			session.setAttribute("succMsg", "Product Saved Success!");
-
+		List<ProductOrder> orders = orderRepository.findByProductId(id);
+		if (!orders.isEmpty()) {
+			Product product = productRepository.findById(id).orElse(null);
+			if (product != null) {
+				product.setIsActive(false);
+				productRepository.save(product);
+				session.setAttribute("succMsg", "Product is deactivated successfully!");
+			}
 		} else {
-			session.setAttribute("errorMsg", "Something wrong on server");
-		}
+			Boolean deleteProduct = productService.deleteProduct(id);
 
+			if (deleteProduct) {
+				session.setAttribute("succMsg", "Product deleted successfully!");
+
+			} else {
+				session.setAttribute("errorMsg", "Something wrong on server");
+			}
+
+		}
 		return "redirect:/admin/products";
+
 	}
 
 	@GetMapping("/editProduct/{id}")
@@ -310,7 +335,24 @@ public class AdminController {
 
 	@GetMapping("/updateSts")
 	public String updateUserAccount(@RequestParam Boolean status, @RequestParam Integer id, @RequestParam Integer type,
-			HttpSession session) {
+			HttpSession session, Principal principal) {
+
+		String loggedInUser = principal.getName();
+
+		UserDtls loggedInUserObj = userRepository.findByEmail(loggedInUser);
+
+		if (loggedInUserObj != null) {
+			// Nếu id của người dùng đang đăng nhập trùng với id cần thay đổi, không cho
+			// phép
+			if (loggedInUserObj.getId().equals(id)) {
+				session.setAttribute("errorMsg", "You cannot change the status of your own account.");
+				return "redirect:/admin/users?type=" + type;
+			}
+		} else {
+			// Trường hợp nếu không tìm thấy người dùng trong cơ sở dữ liệu
+			session.setAttribute("errorMsg", "User not found.");
+			return "redirect:/admin/users?type=" + type;
+		}
 
 		Boolean f = userService.updateAccountStatus(id, status);
 
@@ -360,7 +402,7 @@ public class AdminController {
 
 		ProductOrder updateOrder = orderService.updateOrderStatus(id, status);
 		try {
-			commonUtil.sendMailForProductOrder(updateOrder, status);
+			commonUtil.sendMailForProductOrder(Collections.singletonList(updateOrder), status);
 		} catch (Exception e) {
 
 			e.printStackTrace();

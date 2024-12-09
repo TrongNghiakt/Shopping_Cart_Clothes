@@ -10,7 +10,9 @@
 
 		<div class="container-fluid mt-5 p-5">
 			<div class="row">
-				<p class="text-center fs-3" style="font-family: sans-serif; color: #505C3C; font-weight: bold; margin-top: 20px; margin-bottom: 25px;">MY ORDERS</p>
+				<p class="text-center fs-3"
+					style="font-family: sans-serif; color: #505C3C; font-weight: bold; margin-top: 20px; margin-bottom: 25px;">MY
+					ORDERS</p>
 				<th:block th:if="${session.succMsg}">
 					<p class="text-success fw-bold text-center"
 						style="font-size: 1.8rem; font-weight: 700;">[[${session.succMsg}]]</p>
@@ -28,9 +30,11 @@
 					<table class="table table-bordered">
 						<thead>
 							<tr>
-								<th scope="col" style="font-family: sans-serif; color: #505C3C">Sl No</th>
+								<th scope="col" style="font-family: sans-serif; color: #505C3C">Sl
+									No</th>
 								<th scope="col" style="font-family: sans-serif; color: #505C3C">Date</th>
-								<th scope="col" style="font-family: sans-serif; color: #505C3C">Product Details</th>
+								<th scope="col" style="font-family: sans-serif; color: #505C3C">Product
+									Details</th>
 								<th scope="col" style="font-family: sans-serif; color: #505C3C">Price</th>
 								<th scope="col" style="font-family: sans-serif; color: #505C3C">Status</th>
 								<th scope="col" style="font-family: sans-serif; color: #505C3C">Action</th>
@@ -41,17 +45,20 @@
 								<th scope="row" style="font-family: sans-serif; color: #505C3C">[[${o.orderId}]]</th>
 								<td style="font-family: sans-serif; color: #505C3C">[[${o.orderDate}]]</td>
 								<td style="font-family: sans-serif; color: #505C3C">[[${o.product.title}]]</td>
-								<td style="font-family: sans-serif; color: #505C3C">Quantity : [[${o.quantity}]] <br>Price :
-									[[${o.price}]] <br>Total Price : [[${o.quantity *
-									o.price}]]
+								<td style="font-family: sans-serif; color: #505C3C">Quantity
+									: [[${o.quantity}]] <br>Price : [[${o.price}]] <br>Total
+									Price : [[${o.quantity * o.price}]]
 								</td>
 								<td style="font-family: sans-serif; color: #505C3C">[[${o.status}]]</td>
-								<td><th:block th:if="${o.status!='Cancelled' && o.status!='Delivered' && o.status!='Delivered' && o.status!='Out for Delivery' && o.status!='Product Packed'}">
-										<a th:href="@{'/user/update-status?id='+${o.id}+'&st=6' }"
+								<td><th:block
+										th:if="${o.status != 'Cancelled' && o.status != 'Delivered' && o.status != 'Out for Delivery' && o.status != 'Product Packed'}">
+										<a th:href="@{'/user/update-status?id=' + ${o.id} + '&st=6'}"
 											class="btn btn-sm btn-danger">Cancel</a>
-									</th:block> <th:block th:unless="${o.status!='Cancelled' && o.status!='Delivered' && o.status!='Delivered' && o.status!='Out for Delivery' && o.status!='Product Packed'}">
+									</th:block> <th:block
+										th:unless="${o.status != 'Cancelled' && o.status != 'Delivered' && o.status != 'Out for Delivery' && o.status != 'Product Packed'}">
 										<a href="#" class="btn btn-sm btn-danger disabled">Cancel</a>
 									</th:block></td>
+
 
 
 							</tr>

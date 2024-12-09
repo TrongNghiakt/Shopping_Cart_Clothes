@@ -61,11 +61,11 @@
 			<div class="row">
 				<p class="text-center fs-2" style="font-family: sans-serif; color: #505C3C; font-weight: bold; margin-top: 15px"><i class="fa-solid fa-fire" style = "color:red"></i> HOT PRODUCT <i class="fa-solid fa-fire" style = "color:red"></i></p>
 
-				<div class="col-md-3" th:each="p:${bestSellingProducts}" style="margin-top: 15px">
+				<div class="col-md-3" th:each="p : ${bestSellingProducts}" style="margin-top: 15px">
 					<div class="card-sh mb-5 rounded" style="background-color: #f5f5ef; ">
 						<div class="card-body text-center">
-							<img alt="" th:src="@{'img/product_img/'+${p.product.image}}" class="" width="100%">
-							<p class="text-center" style="margin-top: 15px; padding-bottom: 15px"><a th:href="@{'/product/'+${p.id}}" class="text-decoration-none"  style="padding-left: 25px;font-family: sans-serif; color: #505C3C; font-weight: bold; font-size: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 90%; display: block; word-wrap: break-word; ">[[${p.product.title}]]</a></p>
+							<img alt="" th:src="@{'img/product_img/'+${p.image}}" class="" width="100%">
+							<p class="text-center" style="margin-top: 15px; padding-bottom: 15px"><a th:href="@{'/product/'+${p.id}}" class="text-decoration-none"  style="padding-left: 25px;font-family: sans-serif; color: #505C3C; font-weight: bold; font-size: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 90%; display: block; word-wrap: break-word; ">[[${p.title}]]</a></p>
 						</div>
 					</div>
 				</div>
